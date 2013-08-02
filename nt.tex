@@ -1,0 +1,154 @@
+\documentstyle[12pt]{article}
+
+\begin{document}
+
+\title{Computational Methods in Finance, Lecture 2, \\
+       Diffusions and Diffusion Equations.}
+
+\author{Jonathan Goodman \thanks{goodman@cims.nyu.edu, or http://www.math.nyu.edu/faculty/goodman,  I retain the copyright to
+these notes.  I do not give anyone permission to copy the computer
+files related to them (the .tex files, .dvi files, .ps files, etc.)
+beyond downloading a personal copy from the class web site.
+If you want more copies, contact me.} \\
+Courant Institute of Mathematical Sciences, NYU }
+\maketitle
+
+
+
+\section{Introduction}
+
+This lecture and the next are about finite difference methods for solving
+the diffusion equations that arise in financial applications.  Before get
+to finite differences, we review stochastic differential equations.  As in
+Lecture 1, we discuss the forward and backward equations and the differences
+between them.
+
+\section{Diffusions and Diffusion Equations}
+
+Lecture 1 discusses Markov processes in discrete state space and discrete time.
+Now we turn to continuous time and continuous state space.  The state at time
+$t$ is a vector, $X \in \mbox{\bf R}^n$ consisting of $n$ components, or
+``factors'', $X = (X_1, \ldots, X_n)$.  The dynamics are given by the
+Ito differential equation
+\begin{equation}
+dX(t) = a(X(t))dt + b(X(t))dZ \;\; .
+\end{equation}
+Here $Z(t)$ is a vector of $m$ independent standard Brownian motions.
+For each $x$, there is a ``drift'', $a(x)$, and an $n \times m$ matrix
+$b(x)$, that is related to the volatility.  There is no reason that
+$m$, the number of noise sources, should equal $n$, the number of factors,
+but there is no reason ever to have more noises than factors.  The columns
+of $b$ are vectors in $\mbox{\bf R}^n$.  Column $j$ gives the influence
+of noise $j$ on the dynamics.  If these columns do not span
+$\mbox{\bf R}^n$, then the diffusion is ``degenerate''.  Otherwise,
+it is nondegenerate.  Both types come up in financial applications.
+
+As in Lecture 1, there are forward and backward evolution equations that
+are dual to each other.  The forward equation is for $u(x,t)$, the probability
+density for $X(t)$.  This is the ``diffusion equation''
+\begin{equation}
+\partial_t u = - \sum_{j=1}^n \partial_{x_j} a_j(x) u
+  + \frac{1}{2} \sum_{j,k = 1}^n \partial_{x_j}\partial_{x_k}\mu_{jk}(x) u
+             \;\; .
+\end{equation}
+The matrix of diffusion coefficients, $\mu$, is related to $b$ by
+\begin{equation}
+\mu(x) = b(x)\cdot b^*(x) \;\; .
+\end{equation}
+We write $M^*$ for the transpose of a matrix, $M$.
+The coefficients, $a_j(x)$, in (2) are the components of $a$ in (1).
+
+A strict mathematical derivation of (2) from (1) or vice versa is outside
+the scope of this course.  However, some aspects of (2) that are natural.
+First, because $u$ is a probability density, the integral of $u(x,t)$ over
+$x$ should be independent of $t$.  That will happen if all the terms on the
+right of (2) are derivatives of something.  This is sometimes called
+``conservation form''.  The second term on the right of (2) involves
+two derivatives.  Someone used to physical modeling might expect it to
+take the form
+\begin{equation}
+\mbox{WRONG} \;\;\;\;\;\;
+ \frac{1}{2} \sum_{j,k = 1}^n \partial_{x_j}\mu_{jk}(x)\partial_{x_k} u
+                            \;\; .
+\;\;\;\;\;\; \mbox{WRONG}
+\end{equation}
+The actual form (2) has the ``martingale'' property that, if there is no
+drift, then the expected value of $X$ does not change with time.  To see
+this, use (2) with $a \equiv 0$ and compute
+\begin{eqnarray*}
+\partial_t \mbox{\bf E}\left[ X(t) \right]
+& = &
+   \partial_t \int x u(x,t)dx \\
+& = &
+   \int x  \frac{1}{2}
+         \sum_{j,k = 1}^n \partial_{x_j}\partial_{x_k}\mu_{jk}(x) u d \\
+& = & 0 \;\; .
+\end{eqnarray*}
+The last line follow from the one above if you integrate by parts twice
+to put the two derivatives on the $x$.  The result would generally not be
+zero using (4) instead of (2).
+
+Here is an equally rigorous derivation of the relation (3) between volatility
+and diffusion coefficients.  Suppose first that $n = m = 1$.  The number
+$\mu$ should depend on $b$ in some way.  Observe that the diffusion
+governed by (1) will be unchanged of $b$ is replaced by $-b$; $Z(t)$
+is indistinguishable from $-Z(t)$.  This suggests the formula $\mu = b^2$.
+In general, we need a matrix analogue of $\mu = b^2$ that produces
+an $n \times n$ matrix, $\mu$, from an $n \times m$ matrix, $b$.  The
+simplest possibility is (3).  For constant $b$ and $a=0$, we can match
+moments.  Use (1) and assume $X(0) = 0$ and $Z(0) = 0$\footnote{The Wiener
+process is usually defined to that $Z(0)=0$.} and get $X(t) = bZ(t)$.
+From this it follows that
+\begin{displaymath}
+\mbox{cov}\left( X(t)X^*(t) \right) = bb^* t \;\; .
+\end{displaymath}
+On the other hand, from (2) we compute
+\begin{eqnarray*}
+\partial_t \mbox{\bf E} \left( XX^* \right) & = &
+        \partial_t \int xx^* u(x,t)dx  \\
+     & = &
+        \frac{1}{2}
+          \int xx^* \sum_{jk} \partial_{x_j}\partial_{x_k} \mu_{jk} u dx \\
+     & = &
+         \mu \;\; .
+\end{eqnarray*}
+which again agrees with (3).
+
+The drift term in (2), $\partial_x au$, corresponds to the drift term
+in (1), $a(X)dt$.  It is easy to see what the term would be if $a$ were
+constant (independent of $x$ and $t$) and $b$ were zero.  In that case
+the solution of (1) would be $X(t) = X(0) + at$.  For this reason,
+the probability density is also simply shifted with speed $a$:
+$u(x,t) = u(x-at,0)$.  This function satisfies (2) (if the signs are
+right).
+
+As in Lecture 1, the simplest backward equation is for
+\begin{displaymath}
+f(x,t) = \mbox{\bf E}\left[ f_T(X(T)) | X(t) = x \right] \;\; .
+\end{displaymath}
+More complicated expectations satisfy more complicated but related
+equations.  The backward equation for $f$ is
+\begin{equation}
+\partial_t f + \sum_j a_j(x) \partial_{x_j} f
+         + \frac{1}{2} \sum_{jk} \mu_{jk}(x) \partial_{x_j}\partial_{x_k} f
+            = 0 \;\; .
+\end{equation}
+Still following Lecture 1, this is supplemented with ``initial data'' given
+at the final time, $T$, $f(x,T) = f_T(x)$, and determines $f(x,t)$ for
+$t < T$.  Again, we can express unconditional expectation in terms of
+conditional expectation starting from time $t$ and the probability density
+for $X(t)$:
+\begin{equation}
+\mbox{\bf E}\left[ f_T(X(T)) \right] = \int f(x,t)u(x,t)dx \;\; .
+\end{equation}
+The fact that the right side of (6) is independent of $t$ allows us to
+derive (5) from (2) or vice versa.  Finally, $f$ satisfies a
+``maximum principle'':
+\begin{displaymath}
+\min_y f(y,T) \leq f(x,t) \leq \max_y f(y,T) \;\;\;\;
+         \mbox{if $t < T$.}
+\end{displaymath}
+The probability interpretation of $f$ makes this obvious; the expected
+reward cannot be less than the least possible reward nor larger than the
+largest.
+\end{document} 

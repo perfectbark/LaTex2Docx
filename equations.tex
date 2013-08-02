@@ -1,0 +1,100 @@
+\documentclass{article}
+
+\usepackage{amsmath} % allows you to put text in the math environment.
+
+\begin{document}
+
+\title{Some Examples of Equation-Writing in \LaTeX}
+\author{Doreen De Leon\\Department of Mathematics, UCLA}
+\date{December 20, 2002}
+\maketitle
+
+\section{Writing a Simple Equation}
+\label{sec:simple}
+\setcounter{equation}{0} % sets equation counter to 1
+
+To display an unnumbered equation on a new line, just type:
+\emph{$\backslash$[ x' = 2x - 3 $\backslash$]}.  This will display as:
+\[ x' = 2x - 3 \]
+If we want to get a numbered equation, we must type:\\
+\emph{$\backslash$begin\{equation\}\\x' = 2x - 3\\$\backslash$end\{equation}\}.
+This will display as:
+\begin{equation}
+x' = 2x - 3
+\end{equation}
+
+Now, suppose we want to write a differential equation in another form.
+Try, \emph{$\backslash$[$ \backslash$frac\{dy\}\{dt\} = 2y + 8 $\backslash$]}.
+This displays as:
+\[ \frac{dy}{dt} = 2y + 8 \]
+or, we may write \emph{\$\$ y\_t = 2y + 8\$\$}:
+$$ y_t = 2y + 8 $$
+
+Now, suppose we have a partial differential equation.
+To write it with the partial derivatives, we just do:\\
+\emph{\$\$ $\backslash$frac\{$\backslash$partial\^2 u\}
+    \{$\backslash$partial\^2 x\} + $\backslash$frac\{$\backslash$partial\^2 u\}
+    \{$\backslash$partial\^2 y\} = 0 \$\$}.
+This displays as:
+$$ \frac{\partial^2 u}{\partial^2 x} +
+\frac{\partial^2 u}{\partial^2 y} = 0 $$
+Or, we may write \emph{\$\$ u\_\{xx\} + u\_\{yy\} = 0 \$\$}, which displays as:
+$$ u_{xx} + u_{yy} = 0 $$
+
+To add text to an equation do for example,:\\
+\emph{\$\$ y=mx+b, $\backslash$text\{ where \$m\$ is the slope, \} x
+      $\backslash$in (-$\backslash$infty, $\backslash$infty) \$\$}.
+This displays as:
+$$ y=mx+b, \text{ where $m$ is the slope, } x \in (-\infty, \infty) $$.
+Note: You need to have included the \texttt{amstext} package at the beginning
+of the document (after the \emph{$\backslash$documentclass} command.
+
+If we want to write an equation with a two-line right-hand-side,
+\begin{equation}
+y(0) = \left\{ \begin{array}{cc}
+              1 & \mbox{if $x \le 0$, }\\
+              -1 & \mbox{if $x > 0$.}
+             \end{array} \right.
+\end{equation}
+
+% Note:  The single dollar sign puts us into math mode.  The double dollar
+% sign puts us into the equation mode.
+
+To write several equations together, we do the following:
+\begin{eqnarray}
+\label{eqn:wave}
+u_t + u_x & = & 0 \nonumber \\
+u(x, 0) & = & \left\{ \begin{array}{cc}
+              1 & \mbox{if $x \le 0$, }\\
+              -1 & \mbox{if $x > 0$.}
+             \end{array} \right.
+\end{eqnarray}
+
+
+\section{More complicated expressions}
+\label{comp}
+\setcounter{equation}{0}
+
+Here is how we would write a matrix:
+$ A = \left( \begin{array}{ccc} a_{11} \hspace{1mm} a_{12} \hspace{1mm}
+                                    \ldots \hspace{1mm} a_{1n} \\
+                              a_{21} \hspace{1mm} a_{22} \hspace{1mm}
+                                     \ldots \hspace{1mm} a_{2n} \\
+                              \vdots \hspace{6mm} \vdots \hspace{11mm} \vdots \\
+                              a_{n1} \hspace{1mm} a_{n2} \hspace{1mm}
+                                     \ldots \hspace{1mm} a_{nn}
+              \end{array}  \right) $
+
+
+To write a system of equations:
+\begin{equation}
+\label{eq:pred}
+\left\{  \begin{array}{c}
+                        x'  =  3x - 2y + 3xy, \nonumber \\
+                        y'  =  2x - 3y - 2xy, \\
+                        x(0)  =  0, \nonumber \\
+                        y(0)  =  1 \nonumber
+           \end{array}  \right.
+\end{equation}
+
+\end{document}

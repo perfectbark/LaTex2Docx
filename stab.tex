@@ -1,0 +1,578 @@
+
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+
+\def\Def{Definition}
+\def\a{for every }
+\def\A{For every }
+\def\e{there exists }
+\def\E{There exists }
+\def\pf{{\em Proof. }}
+\def\eps{\varepsilon}
+\def\bx{\bar{x}}
+\def\by{\bar{y}}
+\def\vphi{\varphi}
+
+ \begin{document}
+
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{eqn}{Equation}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}{Corollary}[section]
+
+\title{A Brief Overview of Lyapunov Stability for Ordinary Differential Equations}
+\author{David Glickenstein}
+\date{May 2, 1996}
+\maketitle
+
+\abstract{Lyapunov stability is a way to characterize the qualitative
+idea of stability in models of physical systems.  A stable solution to
+a differential equation is one which does not change much when the
+initial conditions are changed slightly.  We shall look at two methods
+of checking the stability of solutions to ordinary differential
+equations.  The first works by characterizing the solutions of linear
+systems to study their stability and then looking at nonlinear systems
+which are close to the linear case.  The second uses an auxilliary
+function to find stability without having to characterize the
+solutions.  Finally we look at some of the limitations of the Lyapunov
+notion of stability.}
+
+\section{Introduction}
+
+We are going to look at general ordinary differential equations of the
+following type:
+\begin{equation}
+	x'(t) = f(t,x(t))
+	\label{gen}
+\end{equation}
+where $x: \Re \rightarrow \Re^n$ and $f:\Re \times \Re^n \rightarrow
+\Re^n$ are functions and $t$, which usually represents time, is the
+only independent variable.  The derivative $x'(t)$ is simply the
+derivatives of each of the component functions, so if $x(t) =
+(x_1(t),...,x_n(t))$ where $x_i(t)$ are real-valued functions on $\Re$
+then
+$$x'(t) = (x_1'(t),...,x_n'(t)).$$
+In some cases we will be considering the autonomous case
+\begin{equation}
+	x'(t) = f(x(t))
+	\label{aut}
+\end{equation}
+where $f:\Re^n \rightarrow \Re^n$.  We are going to assume the
+existence of continuous solutions and uniqueness of a solution with
+the initial condition $x(t_0) = x_0$ where $t_0$ is a constant and
+$x_0$ is a constant n-vector.  In the simplest case, a solution will
+tend to a constant as $t$ goes to infinity.  In the autonomous case,
+we can think of the solution as a continuous curve through n-space
+(called phase space), and when the solution tends to a constant, the
+curve will converge to a point in phase space.  If a constant function
+$c$ satisfies the differential equation, then the the derivative
+$x'(t) = f = 0$ for $x_0 = c$ and $c$ is called an equilibrium point.
+Periodic solutions satisfy $x(t) = x(t + n\tau)$ for some $\tau$ and
+any integer $n$.  Other, more complicated solutions also exist which
+may or may not be stable.  Nonautonomous systems have analogous types
+of solutions.
+
+We are going to be studying the stability of (\ref{gen}).  Stability
+is a qualitative notion that if we perturb the initial condition
+slightly, say $x(t_0) = x_0 + \eps$, then the new solution will be
+close to the original system.  Stable differential equations are more
+useful in practice since $x_0$ is often a  measured value and does
+not have infinite precision.  A stable differential equation would
+insure that our model would come up with an answer reasonably close to
+the actual answer an exact initial condition.
+
+First, we will define our notion of stability.  What we shall refer to
+as {\em stable} is more correctly termed {\em Lyapunov stable} since
+there are many different mathematical notions of stability.
+
+\begin{dfn}
+  	A solution $x(t)$ is {\em stable} if \a $\eps >0$
+	\e $\delta > 0$ such that if $\| x_0 - \bx_0 \| < \delta$ then
+	$\| x(t) - \bx(t) \| < \eps$ \a $t \ge t_0$, where $\bx(t)$ is
+	the solution to
+	$$\bx'(t) = f(t, \bx(t))$$
+with $x(t_0) = x_0$ and $\bx(t_0) = \bx_0$.
+\end{dfn}
+
+Sometimes our model works so well that if we change the initial
+condition slightly, the solution will still converge to the exact
+solution under the original initial conditions.  This means that when
+we use a measured value, our approximate model (with an inexact
+initial condition) not only stays close to the actual solution, but
+gets closer and closer to the actual solution as $t$ increases.  This
+notion is called {\em asymptotic stability}.
+
+\begin{dfn}
+	A solution $x(t)$ is {\em asymptotically stable} if it is stable
+	and there is a $\rho > 0$ such that if $\| x_0 - \bx_0 \| < \rho$
+	then 
+$$\lim_{t \rightarrow \infty} \| x(t) - \bx(t) \| = 0.$$
+\end{dfn}
+
+In general, asymptotic stability is more desirable, since we know that
+no matter where we place our initial condition, we will converge to
+the actual answer if we are close enough to the actual initial
+condition.  Unfortunately, asymptotic stability is not always
+possible, as we shall see in the fourth section.
+
+We will primarily use these two notions of stability.  There
+are two main methods used to study Lyapunov stability, known
+as Lyapunov's First and Second (or Direct) Methods.
+
+\section {Lyapunov's First Method}
+
+Lyapunov's First Method works by characterizing solutions to
+differential equations of the type (\ref{gen}) and using those
+characterizations to learn what we can about stability.  Thus our
+approach will begin with simple linear systems and move on to certain
+kinds of nonlinear systems which exhibit similar behavior to the
+linear systems.
+
+We will first look at linear differential equations 
+
+\begin{equation}
+	x'(t) = A(t)x(t)
+    \label{linear}
+\end{equation}
+
+where $A: \Re ^n \rightarrow \Re ^n$ is linear and $x: \Re \rightarrow \Re^n.$
+
+When working with linear systems of the form (\ref{linear}) we will
+use the following theorem, without proof, to characterize solutions.
+The theorem is presented as a matrix equation where the derivative
+$C'(t)$ of a matrix function $C$ is simply defined as the derivative
+of each of the entries of the matrix.
+
+\begin{thm}
+	If $\Phi '(t) = A(t) \Phi (t)$ with $\Phi$ an invertible $n \times
+n$ matrix then all solutions of (\ref{linear}) are linear combinations
+of the columns of $\Phi$ and, in particular, we can choose some $\Phi
+(t)$ such that $\Phi (t_0) = I$ where $I$ is the identity matrix, so
+that $x(t) = \Phi (t) x_0$ is a solution to (\ref{linear}).  \end{thm}
+
+\pf Omitted.
+
+\begin{dfn}
+	$\Phi$ as described in the last theorem is called the {\em
+fundamental matrix} of the differential equation.
+\end{dfn}
+
+The fundamental matrix depends only on the differential equation and
+thus only on the matrix function $A(t)$.
+
+We also will need to define the operator norm for a matrix A:
+
+\begin{dfn}
+	If $A$ is an $n \times n$ real matrix then
+$$\| A \| = \sum^n_{i,j=1} |a_{ij}|$$
+\end{dfn}
+
+Note that $\| Ax \| \le \| A \| \  \|x\|$ where $\| A \|$ is the operator
+norm and the other two norms are the usual Euclidean vector norm in $\Re^n$.
+
+We are now ready to prove an important theorem.  It turns out that in
+the linear case the property of solutions being stable is equivalent
+to the property of solutions being bounded.
+
+\begin{thm}
+	All solutions of (\ref{linear}) are stable if and only if they are
+bounded.
+\end{thm}
+
+% begin proof
+\pf All solutions are of the form $\Phi (t) x_0$ where $\Phi$ is the
+fundamental matrix such that $\Phi (t_0) = I$.  Let $x(t)$ and
+$\bx(t)$ be solutions satisfying $x(t_0) = x_0$ and $\bx(t_0) =
+\bar{x}_0$ respectively.
+  
+Assume that all solutions to (\ref{linear}) are bounded.  Thus we can
+find an $M$ such that $\| \Phi (t) \| < M$ for all $t > 0$.  Given
+some $\eps > 0$, if $\| x_0 - \bx_0 \| < {\eps \over M}$ then
+\begin{eqnarray*}
+	\| x(t) - \bx(t) \| & = & \| \Phi (t)x_0 - \Phi (t) \bx_0 \| \\
+	& \le & \| \Phi (t) \| \ \| x_0 - \bx_0 \| \\
+	& < & \eps.
+\end{eqnarray*}
+
+Conversely, assume that all solutions are stable.  Thus the particular
+solution $x(t) \equiv 0$ is stable, so \a $\eps > 0$ \e $\delta > 0$
+such that if $\| \bx_0 \| < \delta$ then 
+$$\| \bx (t) \| = \| \Phi (t) \bx_0\| < \eps.$$
+In particular, let 
+$$\bx_0^{(i)} = {\delta \over 2} e_i $$
+where $e_i$ is the ith standard basis vector of $\Re^n$.  Then
+$$\| \Phi (t) \bx_0^{(i)} \| = \| \phi_i(t) \| {\delta \over 2} <
+\eps$$
+where $\phi_i$ is the ith column of $\Phi$.  We can sum these over all
+i and get:
+$$\| \Phi (t) \| \le \sum^n_{i=1} \| \phi_i(t) \| \le {2n \eps \over
+\delta} = k$$
+so $$\| x(t) \| = \| \Phi (t) x_0 \| \le k \| x_0 \|$$
+and $x(t)$ is bounded. $\Box$
+%end proof
+
+Note that boundedness is not necessarily true for stable systems in
+general.  For instance, take the differential equation $x'(t) = 1$
+whose solutions are all stable but not bounded.
+
+Lyapunov's First Method consists mainly of showing that solutions of linear
+systems, especially if $A(t)$ is a constant funtion, are bounded and
+hence stable.  It then looks at functions which are nonlinear, but
+simply small perturbations of linear functions.  We shall state
+without proof several theorems.  For a more detailed explanation with
+proofs, see [2].
+
+Consider the constant linear equation:
+\begin{equation}
+	x'(t) = A \ x(t)
+	\label{constlin}
+\end{equation}
+where $A$ is a constant matrix.  We can easily show the following.
+
+\begin{thm}
+	If all eigenvalues of A have negative real parts then every
+solution to (\ref{constlin}) is asymptotically stable.
+\end{thm}
+
+\pf Omitted.
+
+We can easily extend this to equations with slight perturbations.  So
+we characterize the following nonlinear equation
+
+\begin{equation}
+	x'(t) = A \ x(t) + f(t,x(t))
+	\label{nonlinear}
+\end{equation}
+
+with the following theorem.
+
+\begin{thm}
+	If f satisfies:
+
+\begin{enumerate}
+\item $f(t,x)$ is continuous for $\| x \| < a, \ 0 \le t <\infty$ and
+\item $\lim_{\| x \| \rightarrow 0} {\| f(x,t) \| \over \| x \|} = 0$ 
+\end{enumerate}
+then the solution $x(t) \equiv 0$ is asymptotically stable.
+\end{thm}
+
+It turns out that to characterize the general linear case where $A$ is a
+function of time, we need a slightly stronger notion of stability
+called uniform stability.  The reader is again referred to [2].
+
+\section{Lyapunov's Second Method}
+
+Lyapunov's Second or Direct Method is unique in that it does not
+require a characterization of the solutions to determine stability.
+This method often allows us to determine whether a differential
+equation is stable without knowing anything about what the solutions
+look like, so it is ideal for dealing with nonlinear systems.
+
+The method uses a supplementary function called a Lyapunov function to
+determine properties of the asymptotic behavior of solutions to a
+differential equation of the general form (\ref{gen}).  We will need
+the following definitions.
+
+\begin{dfn}
+	A function $V(t,x)$ is {\em positive [negative]
+definite} if \e a real-valued function $\vphi (r)$ such that:
+
+\begin{enumerate}
+\item $\vphi (r)$ is strictly increasing on $0 \le r \le a$ and
+$\vphi (0) = 0$ and
+\item $V(t,x) \ge \vphi ( \| x \| ) \ [V(t,x) \le - \vphi ( \| x \| )]$
+for all $(t,x) \in \{ (t,x): t_0 \le t < \infty, \| x \| \le b < a \}$.  
+\end{enumerate}
+
+\end{dfn}
+	
+\begin{dfn}
+	$$V' = \sum^n_{i=1} {\partial V \over \partial x_i} f_i(t,x) +
+{\partial V \over \partial t}$$
+\end{dfn}
+Note that $V'(t,x(t))$ is the time derivative of $V$.
+
+\begin{dfn}
+	A real function $V(t,x)$ is said to admit an {\em infinitesimal upper bound} if \e
+$h > 0$ and a continuous, real-valued, strictly increasing function
+$\psi$ with $\psi (0) = 0$ such that 
+$$|V(t,x)| \le \psi( \| x \|) \ {\rm for} \ \| x \| < h \ {\rm and} \
+t \ge t_0.$$
+\end{dfn}
+
+Using these definitions we shall construct a function $V$.  If we can
+find such a $V$, then we can find stable solutions to the differential
+equation.  Unfortunately, there is no general way to construct $V$
+from the differential equation (\ref{gen}).  Note that we can define
+$V$ in terms of $t$ and $x$ (not $x(t)$) and since our definition of $V'$
+uses the function $f$, the existence of $V$ will have implications for
+the differential equation.
+
+\begin{thm}
+	If a continuous real-valued function $V(t,x)$ exists such that:
+\begin{enumerate}
+\item $V(t,x)$ is positive definite and
+\item $V'(t,x)$ is non-positive
+\end{enumerate}
+then $x(t) \equiv 0$ is a stable solution of (\ref{gen}).
+\end{thm}
+
+\pf We know that $V(t,x)$ is positive definite, so \e a strictly
+increasing function $\vphi (r)$ such that 
+$$0 < \vphi (\| x \| ) \le V(t,x)$$
+for $0 < \| x \| < b$ and $t > t_0$.
+
+Given $\eps > 0$ let 
+$$m_{\eps} = \min_{\| x \| = \eps} \vphi (\| x \| ) = \vphi (\eps).$$ Notice that
+$m_{\eps} > 0$.  Since $V$ is continuous and $V(t,0) = 0$ for all $t$
+(by positive definiteness),
+we can choose a $\delta > 0$ such that 
+$$V(t_0, x_0) < m_{\eps}$$ 
+if $\|x_0 \| < \delta$.  Now 
+$$V'(t,x(t)) \le 0$$ 
+for $t_1 \ge t_0$ and $\| x_0 \| < \delta$ implies
+$$V(t_1, x(t_1)) \le V(t_0,x(t_0)) = V(t_0,x_0) < m_{\eps}$$
+
+Now, suppose for some $t_1 \ge t_0$ that $\| x(t_1) \| \ge \eps$
+whenever $\| x_0 \| < \delta$.  Then 
+$$V(t_1,x(t_1)) \ge \vphi (\| x(t_1) \| ) \ge \vphi (\eps) =
+m_{\eps}$$
+which is a contradiction, so \a $\eps > 0$ \e $\delta > 0$ such that
+$\| x(t) \| < \eps$ if $\| x_0 \| < \delta$ for $t \ge t_0$,
+i.e. $x(t) \equiv 0$ is stable.  $\Box$
+
+We call a function $V$ which satisfies the hypotheses of the theorem a
+{\em Lyapunov function}.  In physical systems, the Lyapunov function
+used is often an expression for energy, for instance stability for the
+differential equation for a spring: 
+\begin{eqnarray*}
+x'(t) & = & y\\
+y'(t) & = & -kx
+\end{eqnarray*}
+can be done with $V(x,y) = {1 \over 2} y^2 + {1 \over 2} k x^2$, which is the equation
+for total energy of the system.
+
+By strengthening the requirements on $V$ we can find conditions for
+asymptotic stability.
+
+\begin{thm}
+	If a continuous function $V(t,x)$ exists satisfying:
+\begin{enumerate}
+\item $V(t,x)$ is positive definite,
+\item $V(t,x)$ admits an infinitesimal upper bound, and
+\item $V'(t,x)$ is negative definite
+\end{enumerate}
+then the solution $x(t) \equiv 0$ of (\ref{gen}) is asymptotically
+stable.
+\end{thm}
+
+\pf  By the previous theorem, the solution must be stable.  Suppose
+that $x(t)$ is not asymptotically stable, so \a $\eps >0$ there exist
+$\delta > 0$ and $\lambda > 0$ such that any nonzero solution $x(t)$ where
+$x(t_0) = x_0$ satisfies $\lambda \le \| x(t) \| < \eps$ if $t \ge
+t_0$ and $\| x_0 \| < \delta$.
+
+Since $V'(t,x)$ is negative definite, there is a strictly increasing function
+$\vphi (r)$ vanishing at the origin such that $V'(t,x) \le -
+\vphi(\| x \|)$.  We know that $\| x(t) \| \ge \lambda > 0$ for $t \ge
+t_0$ so there is a $d > 0$ such that $V'(t,x(t)) \le -d$.  This
+implies that 
+\begin{eqnarray*}
+	V(t,x(t)) & = & V(t_0,x_0) + \int^t_{t_0} V'(s,x(s)) ds \\
+	& \le & V(t_0,x_0) - (t- t_0) d
+\end{eqnarray*}
+which is less less than zero for large $t$, contradicting the
+assumption that $V(t,x)$ is positive definite.
+
+Thus no such $\lambda$ exists and since $V(t,x(t))$ is positive definite and
+decreasing with respect to $t$
+$$\lim_{t \rightarrow \infty} V(t,x(t)) = 0$$
+which implies that
+$$\lim_{t \rightarrow \infty} \| x(t) \| = 0,$$
+since $V(t,x(t)) \le \psi (\| x(t) \|)$ where $\psi (r)$ is strictly
+increasing and vanishes at the origin (by the second hypothesis).
+Thus as $V(t,x(t)) \rightarrow 0$, $\psi(\| x(t) \|) \rightarrow 0$,
+and $\| x(t) \| \rightarrow 0$ (because $\psi$ is strictly increasing
+and vanishes at 0).  Thus $x(t) \equiv 0$ is asymptotically stable. $\Box$
+
+We can also use the direct method to determine instability in some cases.
+
+\begin{thm}
+	If a continuous real-valued function $V(t,x)$ exists on some set
+$S = \{ (t,x) : t \ge t_1 \ and \ \| x \| < a \} $ satisfying:
+\begin{enumerate}
+\item $V(t,x)$ admits an infinitesimal upper bound,
+\item $V'(t,x)$ is positive definite on S, and
+\item \E a $T > t_1$ such that if $t_0 \ge T$ and $h > 0$ then \e $c
+\in \Re^n$ such that $\| c \| < h$ and $V(t_0,c) > 0$
+\end{enumerate}
+then the solution $x(t) \equiv 0$ is not stable.
+\end{thm}
+
+\pf Suppose $x(t)$ is a solution not identically zero.  Then, by
+uniqueness, $ \| x(t) \| \neq 0$ for all $t \ge t_1$.  If $x(t)$ is
+defined at $t_0$ then for every $t \ge t_0$ for which $x(t)$ is
+defined
+$$V(t,x(t)) - V(t_0, x(t_0)) = \int^t_{t_0} V'(s,x(s)) ds > 0$$
+since $V'(t,x(t))$ is positive definite.
+
+Let $t_0 \ge T$ and $\eps > 0$.  There exists a $c$ such that $\| c \|
+< \min(a,\eps)$ and $V(t_0,c) > 0$ by the third hypothesis.  Since $V$
+admits an infinitesimal upper bound and is continuous, there is a
+$\lambda \in (0,a)$ such that $\| x \| < \lambda$ for $t \ge t_1$.
+Therefore,
+$$| V(t,x) | < V(t_0, c).$$
+
+Let $x(t)$ satisfy the initial condition $x(t_0) = c$.  Then $V(t,x(t)
+> V(t_0, x(t_0)) > 0$ (from the positive definiteness argument), so
+$\| x(t) \| \ge \lambda$.  Also by the second hypothesis we know that
+there is a strictly increasing function $\vphi(r)$ such that $V'(t,x)
+\ge \vphi(\| x \|)$.  Let
+$$ \mu = \min_{\| x \| \in [\lambda, a]} \vphi(\| x \|) = \vphi (\lambda).$$
+then
+$$V'(t,x(t)) \ge \vphi(\| x(t) \|) \ge \mu.$$
+Using the integral inequality, we get
+$$V(t,x(t)) \ge V(t_0, x(t_0)) + (t - t_0) \mu.$$ Thus we can make
+$V(t, x(t))$ arbitrarily large.  Since V(t,x) admits an infinitesimal
+upper bound, there exists a strictly increasing function $\psi (r)$
+such that $|V(t,x(t))| < \psi (\| x \|)$ and $\psi (0) = 0$.  So since
+$V(t,x(t))$ can be arbitrarily large, $\psi(\| x(t) \|)$ can also be
+arbitrarily large, and thus $\| x(t) \|$ gets arbitrarily large and the
+solution is not stable. $\Box$
+
+\section {Limitations of Lyapunov Stability}
+
+The Lyapunov notion of stability has some problems, some of which we
+shall look into here.  Asymptotic stability as we have defined it does
+not always work well for periodic systems, so often other notions such
+as orbital stability are used when studying differential equations
+which have periodic solutions.  In addition, certain classes of
+systems such as Hamiltonian Systems do not react well to a Lyapunov
+analysis.  Finally, there is the question of whether Lyapunov
+stability actually reflects our qualitative idea of stability.
+
+We will first look at how Lyapunov stability works with periodic
+solutions to the autonomous system (\ref{aut}).  It turns out that our
+notion of asymptotic stability is incompatible with such solutions,
+since the points will not get closer together, even thought two
+solutions may get closer and closer to the same final state (a
+periodic cycle).  To prove this we will first need a Lemma that
+solutions to autonomous systems are invariant under translation.
+
+\begin{lem}
+	If $x(t)$ is a solution to (\ref{aut}) then $x(t+h)$ is also a
+solution for any real number $h$.
+\end{lem}
+
+\pf Let $\bx (t) = x(t+h)$ and $s = t+h$.  Then
+\begin{eqnarray*}
+	\bx ' (t) & = & {dx \over ds}{ds \over dt} \\
+	& = & x'(s)\\
+	& = & f(x(s))\\
+	& = & f(x(t+h))\\
+	& = & f(\bx(t))\\
+\end{eqnarray*}
+so $\bx(t) = x(t+h)$ is a solution to (\ref{aut}). $\Box$
+
+Now we can use the fact that translations of solutions are also
+solutions to show that nontrivial periodic solutions cannot be
+asymptotically stable.  By nontrivial periodic we mean that the
+solutions do not converge to a constant vector, i.e., $x(t) \neq x(t +
+\eps)$ for some small $\eps > 0$.
+
+\begin{thm}
+	If $x(t)$ is a nontrivial periodic solution of an autonomous
+	system (\ref{aut}) then $x(t)$ is not asymptotically stable.
+\end{thm}
+
+\pf Suppose $x(t)$ is a nontrivial periodic solution.  Thus \e $t_0$
+such that $f(x(t_0)) \neq 0$ because if not, $x'(t) = 0$ for all $t$
+and the solution is constant (trivially periodic).  Suppose also that
+$x(t)$ is asymptotically stable.
+
+The stability assumption says that given $\eps > 0$ \e $\hat{\delta}
+> 0$ such that $\| x(t) - \bx(t) \| < \eps$ if $ \| x_0 - \bx_0 \| <
+\hat{\delta}$ where $x(t)$ satisfies $x(t_0) = x_0$ and $\bx(t)$ is a
+solution to the same equation satisfying the initial condition
+$\bx(t_0) = \bx_0$.
+
+By the asymptotic stability assumption we can find a $\rho > 0$ such
+that 
+$$\lim_{t \rightarrow \infty} \| x(t) - \bx(t) \| = 0$$
+if $\| x_0 - \bx_0 \| < \rho$.
+
+Let $\delta = \min (\hat{\delta}, \rho)$.  By the continuity of $x(t)$
+we can fix some small $\bar{t}$ so that 
+$$\| x(t_0) - x(t_0 + \bar{t}) \| < \delta.$$
+By the Lemma, $x(t + \bar{t})$ is a solution to the differential
+equation, so by our asymptotic stability assumption
+$$\lim_{t \rightarrow \infty} \| x(t) - x(t + \bar{t})\|  = 0.$$
+
+We know that $x'(t_0) \neq 0$ so we can find $r > 0$ so that $\|x(t_0)
+- x(t_0 + \bar{t}) \| > r$.  Also $x(t)$ is periodic, so assume it has
+period $\tau$.  Then
+$$\| x(t_0 + n \tau) - x(t_0 + \bar{t} + n \tau) \| > r >0$$
+for all $n$, so the limit cannot go to zero, which contradicts our
+assumption of asymptotic stability.  Thus $x(t)$ cannot be
+asymptotically stable. $\Box$ 
+
+Another class of problems which for which asymptotic stability does
+not work is Time-Independent Hamiltonian systems.  They are defined as follows.
+
+\begin{dfn}
+	A {\em time-independent Hamiltontian system (TIHS)} is the 2n
+dimensional system
+\begin{eqnarray*}
+	x'(t) & = & H_y(x(t), y(t)) \\
+	y'(t) & = & -H_x(x(t), y(t))
+\end{eqnarray*}
+where $x(t)$ and $y(t)$ are both functions from $\Re$ to $\Re^n$ and
+$H(x,y)$ is a real valued function with continuous partial
+derivatives.
+\end{dfn}
+
+Hamiltonian Systems are used to model a large class of physical systems
+and have many applications.  It turns out that, like nontrivial
+periodic solutions to autonomous systems, no solutions to a TIHS can be
+asymptotically stable.
+
+\begin{thm}
+	If $(x(t), y(t))$ is a solution to a TIHS then it is not
+asymptotically stable.
+\end{thm}
+
+\pf Suppose $(x(t),y(t))$ is an asymptotically stable solution.  Then
+we can find $t_0$ and $\delta > 0$ such that if $(\bx(t), \by(t))$ is
+a solution and if $\| (x(t_0),y(t_0)) - (\bx(t_0), \by(t_0)) \| < \delta$ then
+$$\lim_{t \rightarrow \infty} \| (x(t),y(t)) - (\bx(t), \by(t)) \| =
+0.$$
+
+But also, 
+$${d \over dt} H(x,y) = {\partial H \over \partial x}{dx \over dt} +
+{\partial H \over \partial y}{dy \over dt} = H_x (H_y) + H_y (-H_x) =
+0$$
+so $H(x,y)$ is constant on any solution $(x(t),y(t))$.  By the continuity of $H$,
+it must be constant on some $\delta$-neighborhood N of
+$(x(t_0),y(t_0))$, so every point in N is an equilibrium point.  Thus
+$(x(t),y(t))$ cannot be asymptotically stable (for initial condition
+$(\bx(t_0),\by(t_0)) \in {\rm N}$, the solution
+$(\bx(t),\by(t))$ will not converge to $(x(t),y(t))$. $\Box$
+
+It turns out that although Lyapunov stability is extremely useful in
+mathematically defining our qualitative view of stability, it is
+neither necessary nor sufficient for something to appear stable on a
+physical level.  Some examples can be found at the end of Chapter 4 of [1].
+
+\begin{thebibliography}{99}
+\bibitem{Cronan} J. Cronin. {\em Differential Equations: Introduction
+and Qualitative Theory.} Marcel Dekker, New York, 1994.
+\bibitem{Sanchez} D.A. Sanchez. {\em Ordinary Differential Equations
+and Stability Theory: An Introduction.}  Dover Publications, New York,
+1979.
+\end{thebibliography}
+
+\end{document}
+
+
+

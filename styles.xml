@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:style w:type="paragraph" w:styleId="section">
+    <w:name w:val="Section" />
+    <w:pPr>
+      <w:jc w:val="center" />
+    </w:pPr>
+    <w:rPr>
+      <w:b />
+      <w:sz w:val="28" />
+    </w:rPr>
+  </w:style>
+  <w:style w:type="paragraph" w:styleId="title">
+    <w:name w:val="Title" />
+    <w:pPr>
+      <w:jc w:val="center" />
+    </w:pPr>
+    <w:rPr>
+      <w:sz w:val="50" />
+    </w:rPr>
+  </w:style>
+  <w:style w:type="paragraph" w:styleId="author">
+    <w:name w:val="Author" />
+    <w:pPr>
+      <w:jc w:val="center" />
+    </w:pPr>
+    <w:rPr>
+      <w:sz w:val="22" />
+    </w:rPr>
+  </w:style>
+  <w:style w:type="paragraph" w:styleId="enumerate">
+    <w:name w:val="List Paragraph" />
+    <w:pPr>
+      <w:ind w:left="720" />
+      <w:contextualSpacing />
+    </w:pPr>
+  </w:style>
+  <w:style w:type="character" w:styleId="sup">
+    <w:name w:val="footnote reference" />
+    <w:rPr>
+      <w:vertAlign w:val="superscript" />
+    </w:rPr>
+  </w:style>
+</w:styles>

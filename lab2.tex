@@ -1,0 +1,106 @@
+\documentclass[12pt]{amsart}
+
+\title{First Order Autonomous Differential Equations}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+A first order, autonomous differential equation is of the form:
+$$
+y'=f(y)
+$$
+\begin{enumerate}
+\item A direction field is a plot of local slopes where the axes
+are $t$ and $y$.  A {\it phase plot} is a plot of $y'$ versus $y$.
+\item An {\it equilibrium solution} is a constant solution,
+$y(t)=c$ so that $f(c)=0$.  These solutions are also called {\it
+fixed points} or {\it critical points}.
+\item An equilibrium solution is said to be an {\it attracting}
+solution if there is an interval of initial values about $y=c$ so
+that all solutions tend to $c$ as $t\rightarrow \infty$.
+\item An equilibrium solution is said to be a {\it repelling}
+solution if there is an interval about $y=c$ so that all solutions
+tend away from $y=c$.
+\end{enumerate}
+
+\section{Goal of the Lab}
+The goal of this lab is to explore first order autonomous
+differential equations, learn some vocabulary associated with
+them, and to do graphical analysis of the solutions.
+
+\section{Lab Questions}
+\begin{enumerate}
+\item From your last lab, you discussed the direction field for
+DEs of the form $y'=f(y)$.  Use your conclusions to discuss the
+following observation:
+
+\begin{quote}
+``No solution to $y'=f(y)$ can oscillate.  All solutions will
+either be constant, monotone increasing, or monotone decreasing.''
+\end{quote}
+
+\item The relationship of the phase plot to the direction field:
+Suppose we are given the differential equation:
+$$
+y'=f(y)=\frac{1}{10}y(3-y)(y+1)^2
+$$
+\begin{enumerate}
+\item Graph $f(y)$ versus $y$ and compare this to the direction
+field.  Is it possible to predict the long term behavior of a
+particular solution by its position in the phase plot?
+\item What are the equilibrium solutions?  Classify each as {\it
+attracting, repelling,} or {\it neither}.  For each equilibrium,
+was it possible to predict this based only on the phase plot?
+Hint:  Consider $\frac{df}{dy}$ at each equilibrium.
+\item Comment on the following observation for autonomous, first
+order equations:
+\begin{quote}
+``The behavior of all solutions to $y'=f(y)$ is organized around
+the equilibrium solutions''
+\end{quote}
+\end{enumerate}
+\item Consider the family of differential equations of the form:
+$$
+y'=ky-y^3
+$$
+where $k$ is a constant.
+\begin{enumerate}
+\item Solve for the equilibrium solutions in terms of $k$ (you can
+do this by hand).
+\item Perform a phase plot for different values of $k$, and state
+in words the effect that $k$ has on the graph of $ky-y^3$.
+Consider the following situations:
+\begin{itemize}
+\item If $k<0$, how many equilibria are there, and what type are
+they?
+\item If $k=0$, answer the same question.
+\item If $k>0$, answer the same question.
+\end{itemize}
+\end{enumerate}
+
+{\it Side Remark:  The phenomena you are talking about is called a
+{\bf bifurcation}- that is, changing a parameter results in the
+creation/destruction of equilibrium solutions!  In fact, this
+particular situation is called a {\bf pitchfork bifurcation}.}
+\item Some general questions:
+\begin{enumerate}
+\item Is it possible to have two attracting equilibria with no
+repelling equilibrium in between?  To answer this, consider the
+phase plot of $f(y)$ versus $y$.
+\item Construct your own autonomous, first order differential
+equation modeling population, that would have the correspond to
+the following behavior:
+
+``If the population falls below 2, the population dies off.  If
+the population is above 2 and less than 20, the population will
+tend to 20.  If the population is greater than 20, there is not
+enough food so the population will tend back towards 20.''
+
+Verify the behavior by providing a phase plot and direction field.
+
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

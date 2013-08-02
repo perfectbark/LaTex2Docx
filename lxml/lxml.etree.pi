@@ -1,0 +1,2520 @@
+# AUTO-GENERATED FILE -- DO NOT EDIT
+
+""" The ``lxml.etree`` module implements the extended ElementTree API
+for XML.
+ """
+
+class AttributeBasedElementClassLookup(FallbackElementClassLookup):
+  """ AttributeBasedElementClassLookup(self, attribute_name, class_mapping, fallback=None)
+      Checks an attribute of an Element and looks up the value in a
+      class dictionary.
+  
+      Arguments:
+        - attribute name - '{ns}name' style string
+        - class mapping  - Python dict mapping attribute values to Element classes
+        - fallback       - optional fallback lookup mechanism
+  
+      A None key in the class mapping will be checked if the attribute is
+      missing.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class C14NError(LxmlError):
+  """ Error during C14N serialisation.
+       """
+
+  def __init__(self):
+    pass
+
+class CDATA(object):
+  """ CDATA(data)
+  
+      CDATA factory.  This factory creates an opaque data object that
+      can be used to set Element text.  The usual way to use it is::
+  
+          >>> from lxml import etree
+          >>> el = etree.Element('content')
+          >>> el.text = etree.CDATA('a string')
+       """
+
+  def __init__(self, data):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+def Comment(arg0):
+  """ Comment(text=None)
+  
+      Comment element factory. This factory function creates a special element that will
+      be serialized as an XML comment.
+       """
+  return None
+
+class CommentBase(_Comment):
+  """ All custom Comment classes must inherit from this one.
+  
+      To create an XML Comment instance, use the ``Comment()`` factory.
+  
+      Subclasses *must not* override __init__ or __new__ as it is
+      absolutely undefined when these objects will be created or
+      destroyed.  All persistent state of Comments must be stored in the
+      underlying XML.  If you really need to initialize the object after
+      creation, you can implement an ``_init(self)`` method that will be
+      called after object creation.
+       """
+
+  def __init__(self):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class CustomElementClassLookup(FallbackElementClassLookup):
+  """ CustomElementClassLookup(self, fallback=None)
+      Element class lookup based on a subclass method.
+  
+      You can inherit from this class and override the method::
+  
+          lookup(self, type, doc, namespace, name)
+  
+      to lookup the element class for a node. Arguments of the method:
+      * type:      one of 'element', 'comment', 'PI', 'entity'
+      * doc:       document that the node is in
+      * namespace: namespace URI of the node (or None for comments/PIs/entities)
+      * name:      name of the element/entity, None for comments, target for PIs
+  
+      If you return None from this method, the fallback will be called.
+       """
+
+  def lookup(self, type, doc, namespace, name):
+    """ lookup(self, type, doc, namespace, name) """
+    pass
+
+DEBUG = 1
+
+class DTD(_Validator):
+  """ DTD(self, file=None, external_id=None)
+      A DTD validator.
+  
+      Can load from filesystem directly given a filename or file-like object.
+      Alternatively, pass the keyword parameter ``external_id`` to load from a
+      catalog.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class DTDError(LxmlError):
+  """ Base class for DTD errors.
+       """
+
+  def __init__(self):
+    pass
+
+class DTDParseError(DTDError):
+  """ Error while parsing a DTD.
+       """
+
+  def __init__(self):
+    pass
+
+class DTDValidateError(DTDError):
+  """ Error while validating an XML document with a DTD.
+       """
+
+  def __init__(self):
+    pass
+
+class DocumentInvalid(LxmlError):
+  """ Validation error.
+  
+      Raised by all document validators when their ``assertValid(tree)``
+      method fails.
+       """
+
+  def __init__(self, tree):
+    pass
+
+class ETCompatXMLParser(XMLParser):
+  """ ETCompatXMLParser(self, encoding=None, attribute_defaults=False,                  dtd_validation=False, load_dtd=False, no_network=True,                  ns_clean=False, recover=False, schema=None,                  huge_tree=False, remove_blank_text=False, resolve_entities=True,                  remove_comments=True, remove_pis=True, strip_cdata=True,                  target=None, compact=True)
+  
+      An XML parser with an ElementTree compatible default setup.
+  
+      See the XMLParser class for details.
+  
+      This parser has ``remove_comments`` and ``remove_pis`` enabled by default
+      and thus ignores comments and processing instructions.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class ETXPath(XPath):
+  """ ETXPath(self, path, extensions=None, regexp=True, smart_strings=True)
+      Special XPath class that supports the ElementTree {uri} notation for namespaces.
+  
+      Note that this class does not accept the ``namespace`` keyword
+      argument. All namespaces must be passed as part of the path
+      string.  Smart strings will be returned for string results unless
+      you pass ``smart_strings=False``.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+def Element():
+  """ Element(_tag, attrib=None, nsmap=None, **_extra)
+  
+      Element factory.  This function returns an object implementing the
+      Element interface.
+  
+      Also look at the `_Element.makeelement()` and
+      `_BaseParser.makeelement()` methods, which provide a faster way to
+      create an Element within a specific document or parser context.
+       """
+  pass
+
+class ElementBase(_Element):
+  """ ElementBase(*children, attrib=None, nsmap=None, **_extra)
+  
+      The public Element class.  All custom Element classes must inherit
+      from this one.  To create an Element, use the `Element()` factory.
+  
+      BIG FAT WARNING: Subclasses *must not* override __init__ or
+      __new__ as it is absolutely undefined when these objects will be
+      created or destroyed.  All persistent state of Elements must be
+      stored in the underlying XML.  If you really need to initialize
+      the object after creation, you can implement an ``_init(self)``
+      method that will be called directly after object creation.
+  
+      Subclasses of this class can be instantiated to create a new
+      Element.  By default, the tag name will be the class name and the
+      namespace will be empty.  You can modify this with the following
+      class attributes:
+  
+      * TAG - the tag name, possibly containing a namespace in Clark
+        notation
+  
+      * NAMESPACE - the default namespace URI, unless provided as part
+        of the TAG attribute.
+  
+      * HTML - flag if the class is an HTML tag, as opposed to an XML
+        tag.  This only applies to un-namespaced tags and defaults to
+        false (i.e. XML).
+  
+      * PARSER - the parser that provides the configuration for the
+        newly created document.  Providing an HTML parser here will
+        default to creating an HTML element.
+  
+      In user code, the latter three are commonly inherited in class
+      hierarchies that implement a common namespace.
+       """
+
+  def __init__(self):
+    """ ElementBase(*children, attrib=None, nsmap=None, **_extra)
+             """
+    pass
+
+class ElementClassLookup(object):
+  """ ElementClassLookup(self)
+      Superclass of Element class lookups.
+       """
+
+  pass
+
+class ElementDefaultClassLookup(ElementClassLookup):
+  """ ElementDefaultClassLookup(self, element=None, comment=None, pi=None, entity=None)
+      Element class lookup scheme that always returns the default Element
+      class.
+  
+      The keyword arguments ``element``, ``comment``, ``pi`` and ``entity``
+      accept the respective Element classes.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  comment_class = property(None, None, None,
+                           )
+
+  element_class = property(None, None, None,
+                           )
+
+  entity_class = property(None, None, None,
+                          )
+
+  pi_class = property(None, None, None,
+                      )
+
+
+class ElementNamespaceClassLookup(FallbackElementClassLookup):
+  """ ElementNamespaceClassLookup(self, fallback=None)
+  
+      Element class lookup scheme that searches the Element class in the
+      Namespace registry.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  def get_namespace(self, ns_uri):
+    """ get_namespace(self, ns_uri)
+    
+            Retrieve the namespace object associated with the given URI.
+    
+            Creates a new one if it does not yet exist. """
+    pass
+
+def ElementTree(None, file=None, parser=None)):
+  """ ElementTree(element=None, file=None, parser=None)
+  
+      ElementTree wrapper class.
+       """
+  return None
+
+def Entity(name):
+  """ Entity(name)
+  
+      Entity factory.  This factory function creates a special element
+      that will be serialized as an XML entity reference or character
+      reference.  Note, however, that entities will not be automatically
+      declared in the document.  A document that uses entity references
+      requires a DTD to define the entities.
+       """
+  pass
+
+class EntityBase(_Entity):
+  """ All custom Entity classes must inherit from this one.
+  
+      To create an XML Entity instance, use the ``Entity()`` factory.
+  
+      Subclasses *must not* override __init__ or __new__ as it is
+      absolutely undefined when these objects will be created or
+      destroyed.  All persistent state of Entities must be stored in the
+      underlying XML.  If you really need to initialize the object after
+      creation, you can implement an ``_init(self)`` method that will be
+      called after object creation.
+       """
+
+  def __init__(self):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class Error(Exception):
+
+  pass
+
+class ErrorDomains(object):
+  """ Libxml2 error domains """
+
+  C14N = 21
+  CATALOG = 20
+  CHECK = 24
+  DATATYPE = 15
+  DTD = 4
+  FTP = 9
+  HTML = 5
+  HTTP = 10
+  I18N = 27
+  IO = 8
+  MEMORY = 6
+  MODULE = 26
+  NAMESPACE = 3
+  NONE = 0
+  OUTPUT = 7
+  PARSER = 1
+  REGEXP = 14
+  RELAXNGP = 18
+  RELAXNGV = 19
+  SCHEMASP = 16
+  SCHEMASV = 17
+  SCHEMATRONV = 28
+  TREE = 2
+  VALID = 23
+  WRITER = 25
+  XINCLUDE = 11
+  XPATH = 12
+  XPOINTER = 13
+  XSLT = 22
+
+  def _getName(self, k, d=None):
+    """ D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None. """
+    return None
+
+  _names = {}
+
+class ErrorLevels(object):
+  """ Libxml2 error levels """
+
+  ERROR = 2
+  FATAL = 3
+  NONE = 0
+  WARNING = 1
+
+  def _getName(self, k, d=None):
+    """ D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None. """
+    return None
+
+  _names = {}
+
+class ErrorTypes(object):
+  """ Libxml2 error types """
+
+  C14N_CREATE_CTXT = 1950
+  C14N_CREATE_STACK = 1952
+  C14N_INVALID_NODE = 1953
+  C14N_RELATIVE_NAMESPACE = 1955
+  C14N_REQUIRES_UTF8 = 1951
+  C14N_UNKNOW_NODE = 1954
+  CATALOG_ENTRY_BROKEN = 1651
+  CATALOG_MISSING_ATTR = 1650
+  CATALOG_NOT_CATALOG = 1653
+  CATALOG_PREFER_VALUE = 1652
+  CATALOG_RECURSION = 1654
+  CHECK_ = 6005
+  CHECK_ENTITY_TYPE = 5012
+  CHECK_FOUND_ATTRIBUTE = 5001
+  CHECK_FOUND_CDATA = 5003
+  CHECK_FOUND_COMMENT = 5007
+  CHECK_FOUND_DOCTYPE = 5008
+  CHECK_FOUND_ELEMENT = 5000
+  CHECK_FOUND_ENTITY = 5005
+  CHECK_FOUND_ENTITYREF = 5004
+  CHECK_FOUND_FRAGMENT = 5009
+  CHECK_FOUND_NOTATION = 5010
+  CHECK_FOUND_PI = 5006
+  CHECK_FOUND_TEXT = 5002
+  CHECK_NAME_NOT_NULL = 5037
+  CHECK_NOT_ATTR = 5023
+  CHECK_NOT_ATTR_DECL = 5024
+  CHECK_NOT_DTD = 5022
+  CHECK_NOT_ELEM_DECL = 5025
+  CHECK_NOT_ENTITY_DECL = 5026
+  CHECK_NOT_NCNAME = 5034
+  CHECK_NOT_NS_DECL = 5027
+  CHECK_NOT_UTF8 = 5032
+  CHECK_NO_DICT = 5033
+  CHECK_NO_DOC = 5014
+  CHECK_NO_ELEM = 5016
+  CHECK_NO_HREF = 5028
+  CHECK_NO_NAME = 5015
+  CHECK_NO_NEXT = 5020
+  CHECK_NO_PARENT = 5013
+  CHECK_NO_PREV = 5018
+  CHECK_NS_ANCESTOR = 5031
+  CHECK_NS_SCOPE = 5030
+  CHECK_OUTSIDE_DICT = 5035
+  CHECK_UNKNOWN_NODE = 5011
+  CHECK_WRONG_DOC = 5017
+  CHECK_WRONG_NAME = 5036
+  CHECK_WRONG_NEXT = 5021
+  CHECK_WRONG_PARENT = 5029
+  CHECK_WRONG_PREV = 5019
+  CHECK_X = 6006
+  DTD_ATTRIBUTE_DEFAULT = 500
+  DTD_ATTRIBUTE_REDEFINED = 501
+  DTD_ATTRIBUTE_VALUE = 502
+  DTD_CONTENT_ERROR = 503
+  DTD_CONTENT_MODEL = 504
+  DTD_CONTENT_NOT_DETERMINIST = 505
+  DTD_DIFFERENT_PREFIX = 506
+  DTD_DUP_TOKEN = 541
+  DTD_ELEM_DEFAULT_NAMESPACE = 507
+  DTD_ELEM_NAMESPACE = 508
+  DTD_ELEM_REDEFINED = 509
+  DTD_EMPTY_NOTATION = 510
+  DTD_ENTITY_TYPE = 511
+  DTD_ID_FIXED = 512
+  DTD_ID_REDEFINED = 513
+  DTD_ID_SUBSET = 514
+  DTD_INVALID_CHILD = 515
+  DTD_INVALID_DEFAULT = 516
+  DTD_LOAD_ERROR = 517
+  DTD_MISSING_ATTRIBUTE = 518
+  DTD_MIXED_CORRUPT = 519
+  DTD_MULTIPLE_ID = 520
+  DTD_NOTATION_REDEFINED = 526
+  DTD_NOTATION_VALUE = 527
+  DTD_NOT_EMPTY = 528
+  DTD_NOT_PCDATA = 529
+  DTD_NOT_STANDALONE = 530
+  DTD_NO_DOC = 521
+  DTD_NO_DTD = 522
+  DTD_NO_ELEM_NAME = 523
+  DTD_NO_PREFIX = 524
+  DTD_NO_ROOT = 525
+  DTD_ROOT_NAME = 531
+  DTD_STANDALONE_DEFAULTED = 538
+  DTD_STANDALONE_WHITE_SPACE = 532
+  DTD_UNKNOWN_ATTRIBUTE = 533
+  DTD_UNKNOWN_ELEM = 534
+  DTD_UNKNOWN_ENTITY = 535
+  DTD_UNKNOWN_ID = 536
+  DTD_UNKNOWN_NOTATION = 537
+  DTD_XMLID_TYPE = 540
+  DTD_XMLID_VALUE = 539
+  ERR_ATTLIST_NOT_FINISHED = 51
+  ERR_ATTLIST_NOT_STARTED = 50
+  ERR_ATTRIBUTE_NOT_FINISHED = 40
+  ERR_ATTRIBUTE_NOT_STARTED = 39
+  ERR_ATTRIBUTE_REDEFINED = 42
+  ERR_ATTRIBUTE_WITHOUT_VALUE = 41
+  ERR_CDATA_NOT_FINISHED = 63
+  ERR_CHARREF_AT_EOF = 10
+  ERR_CHARREF_IN_DTD = 13
+  ERR_CHARREF_IN_EPILOG = 12
+  ERR_CHARREF_IN_PROLOG = 11
+  ERR_COMMENT_NOT_FINISHED = 45
+  ERR_CONDSEC_INVALID = 83
+  ERR_CONDSEC_INVALID_KEYWORD = 95
+  ERR_CONDSEC_NOT_FINISHED = 59
+  ERR_CONDSEC_NOT_STARTED = 58
+  ERR_DOCTYPE_NOT_FINISHED = 61
+  ERR_DOCUMENT_EMPTY = 4
+  ERR_DOCUMENT_END = 5
+  ERR_DOCUMENT_START = 3
+  ERR_ELEMCONTENT_NOT_FINISHED = 55
+  ERR_ELEMCONTENT_NOT_STARTED = 54
+  ERR_ENCODING_NAME = 79
+  ERR_ENTITYREF_AT_EOF = 14
+  ERR_ENTITYREF_IN_DTD = 17
+  ERR_ENTITYREF_IN_EPILOG = 16
+  ERR_ENTITYREF_IN_PROLOG = 15
+  ERR_ENTITYREF_NO_NAME = 22
+  ERR_ENTITYREF_SEMICOL_MISSING = 23
+  ERR_ENTITY_BOUNDARY = 90
+  ERR_ENTITY_CHAR_ERROR = 87
+  ERR_ENTITY_IS_EXTERNAL = 29
+  ERR_ENTITY_IS_PARAMETER = 30
+  ERR_ENTITY_LOOP = 89
+  ERR_ENTITY_NOT_FINISHED = 37
+  ERR_ENTITY_NOT_STARTED = 36
+  ERR_ENTITY_PE_INTERNAL = 88
+  ERR_ENTITY_PROCESSING = 104
+  ERR_EQUAL_REQUIRED = 75
+  ERR_EXTRA_CONTENT = 86
+  ERR_EXT_ENTITY_STANDALONE = 82
+  ERR_EXT_SUBSET_NOT_FINISHED = 60
+  ERR_GT_REQUIRED = 73
+  ERR_HYPHEN_IN_COMMENT = 80
+  ERR_INTERNAL_ERROR = 1
+  ERR_INVALID_CHAR = 9
+  ERR_INVALID_CHARREF = 8
+  ERR_INVALID_DEC_CHARREF = 7
+  ERR_INVALID_ENCODING = 81
+  ERR_INVALID_HEX_CHARREF = 6
+  ERR_INVALID_URI = 91
+  ERR_LITERAL_NOT_FINISHED = 44
+  ERR_LITERAL_NOT_STARTED = 43
+  ERR_LTSLASH_REQUIRED = 74
+  ERR_LT_IN_ATTRIBUTE = 38
+  ERR_LT_REQUIRED = 72
+  ERR_MISPLACED_CDATA_END = 62
+  ERR_MISSING_ENCODING = 101
+  ERR_MIXED_NOT_FINISHED = 53
+  ERR_MIXED_NOT_STARTED = 52
+  ERR_NAME_REQUIRED = 68
+  ERR_NMTOKEN_REQUIRED = 67
+  ERR_NOTATION_NOT_FINISHED = 49
+  ERR_NOTATION_NOT_STARTED = 48
+  ERR_NOTATION_PROCESSING = 105
+  ERR_NOT_STANDALONE = 103
+  ERR_NOT_WELL_BALANCED = 85
+  ERR_NO_DTD = 94
+  ERR_NO_MEMORY = 2
+  ERR_NS_DECL_ERROR = 35
+  ERR_OK = 0
+  ERR_PCDATA_REQUIRED = 69
+  ERR_PEREF_AT_EOF = 18
+  ERR_PEREF_IN_EPILOG = 20
+  ERR_PEREF_IN_INT_SUBSET = 21
+  ERR_PEREF_IN_PROLOG = 19
+  ERR_PEREF_NO_NAME = 24
+  ERR_PEREF_SEMICOL_MISSING = 25
+  ERR_PI_NOT_FINISHED = 47
+  ERR_PI_NOT_STARTED = 46
+  ERR_PUBID_REQUIRED = 71
+  ERR_RESERVED_XML_NAME = 64
+  ERR_SEPARATOR_REQUIRED = 66
+  ERR_SPACE_REQUIRED = 65
+  ERR_STANDALONE_VALUE = 78
+  ERR_STRING_NOT_CLOSED = 34
+  ERR_STRING_NOT_STARTED = 33
+  ERR_TAG_NAME_MISMATCH = 76
+  ERR_TAG_NOT_FINISHED = 77
+  ERR_UNDECLARED_ENTITY = 26
+  ERR_UNKNOWN_ENCODING = 31
+  ERR_UNKNOWN_VERSION = 108
+  ERR_UNPARSED_ENTITY = 28
+  ERR_UNSUPPORTED_ENCODING = 32
+  ERR_URI_FRAGMENT = 92
+  ERR_URI_REQUIRED = 70
+  ERR_VALUE_REQUIRED = 84
+  ERR_VERSION_MISMATCH = 109
+  ERR_VERSION_MISSING = 96
+  ERR_XMLDECL_NOT_FINISHED = 57
+  ERR_XMLDECL_NOT_STARTED = 56
+  FTP_ACCNT = 2002
+  FTP_EPSV_ANSWER = 2001
+  FTP_PASV_ANSWER = 2000
+  FTP_URL_SYNTAX = 2003
+  HTML_STRUCURE_ERROR = 800
+  HTML_UNKNOWN_TAG = 801
+  HTTP_UNKNOWN_HOST = 2022
+  HTTP_URL_SYNTAX = 2020
+  HTTP_USE_IP = 2021
+  I18N_CONV_FAILED = 6003
+  I18N_EXCESS_HANDLER = 6002
+  I18N_NO_HANDLER = 6001
+  I18N_NO_NAME = 6000
+  I18N_NO_OUTPUT = 6004
+  IO_BUFFER_FULL = 1548
+  IO_EACCES = 1501
+  IO_EADDRINUSE = 1554
+  IO_EAFNOSUPPORT = 1556
+  IO_EAGAIN = 1502
+  IO_EALREADY = 1555
+  IO_EBADF = 1503
+  IO_EBADMSG = 1504
+  IO_EBUSY = 1505
+  IO_ECANCELED = 1506
+  IO_ECHILD = 1507
+  IO_ECONNREFUSED = 1552
+  IO_EDEADLK = 1508
+  IO_EDOM = 1509
+  IO_EEXIST = 1510
+  IO_EFAULT = 1511
+  IO_EFBIG = 1512
+  IO_EINPROGRESS = 1513
+  IO_EINTR = 1514
+  IO_EINVAL = 1515
+  IO_EIO = 1516
+  IO_EISCONN = 1551
+  IO_EISDIR = 1517
+  IO_EMFILE = 1518
+  IO_EMLINK = 1519
+  IO_EMSGSIZE = 1520
+  IO_ENAMETOOLONG = 1521
+  IO_ENCODER = 1544
+  IO_ENETUNREACH = 1553
+  IO_ENFILE = 1522
+  IO_ENODEV = 1523
+  IO_ENOENT = 1524
+  IO_ENOEXEC = 1525
+  IO_ENOLCK = 1526
+  IO_ENOMEM = 1527
+  IO_ENOSPC = 1528
+  IO_ENOSYS = 1529
+  IO_ENOTDIR = 1530
+  IO_ENOTEMPTY = 1531
+  IO_ENOTSOCK = 1550
+  IO_ENOTSUP = 1532
+  IO_ENOTTY = 1533
+  IO_ENXIO = 1534
+  IO_EPERM = 1535
+  IO_EPIPE = 1536
+  IO_ERANGE = 1537
+  IO_EROFS = 1538
+  IO_ESPIPE = 1539
+  IO_ESRCH = 1540
+  IO_ETIMEDOUT = 1541
+  IO_EXDEV = 1542
+  IO_FLUSH = 1545
+  IO_LOAD_ERROR = 1549
+  IO_NETWORK_ATTEMPT = 1543
+  IO_NO_INPUT = 1547
+  IO_UNKNOWN = 1500
+  IO_WRITE = 1546
+  MODULE_CLOSE = 4901
+  MODULE_OPEN = 4900
+  NS_ERR_ATTRIBUTE_REDEFINED = 203
+  NS_ERR_COLON = 205
+  NS_ERR_EMPTY = 204
+  NS_ERR_QNAME = 202
+  NS_ERR_UNDEFINED_NAMESPACE = 201
+  NS_ERR_XML_NAMESPACE = 200
+  REGEXP_COMPILE_ERROR = 1450
+  RNGP_ANYNAME_ATTR_ANCESTOR = 1000
+  RNGP_ATTRIBUTE_CHILDREN = 1002
+  RNGP_ATTRIBUTE_CONTENT = 1003
+  RNGP_ATTRIBUTE_EMPTY = 1004
+  RNGP_ATTRIBUTE_NOOP = 1005
+  RNGP_ATTR_CONFLICT = 1001
+  RNGP_CHOICE_CONTENT = 1006
+  RNGP_CHOICE_EMPTY = 1007
+  RNGP_CREATE_FAILURE = 1008
+  RNGP_DATA_CONTENT = 1009
+  RNGP_DEFINE_CREATE_FAILED = 1011
+  RNGP_DEFINE_EMPTY = 1012
+  RNGP_DEFINE_MISSING = 1013
+  RNGP_DEFINE_NAME_MISSING = 1014
+  RNGP_DEF_CHOICE_AND_INTERLEAVE = 1010
+  RNGP_ELEMENT_CONTENT = 1018
+  RNGP_ELEMENT_EMPTY = 1017
+  RNGP_ELEMENT_NAME = 1019
+  RNGP_ELEMENT_NO_CONTENT = 1020
+  RNGP_ELEM_CONTENT_EMPTY = 1015
+  RNGP_ELEM_CONTENT_ERROR = 1016
+  RNGP_ELEM_TEXT_CONFLICT = 1021
+  RNGP_EMPTY = 1022
+  RNGP_EMPTY_CONSTRUCT = 1023
+  RNGP_EMPTY_CONTENT = 1024
+  RNGP_EMPTY_NOT_EMPTY = 1025
+  RNGP_ERROR_TYPE_LIB = 1026
+  RNGP_EXCEPT_EMPTY = 1027
+  RNGP_EXCEPT_MISSING = 1028
+  RNGP_EXCEPT_MULTIPLE = 1029
+  RNGP_EXCEPT_NO_CONTENT = 1030
+  RNGP_EXTERNALREF_EMTPY = 1031
+  RNGP_EXTERNALREF_RECURSE = 1033
+  RNGP_EXTERNAL_REF_FAILURE = 1032
+  RNGP_FORBIDDEN_ATTRIBUTE = 1034
+  RNGP_FOREIGN_ELEMENT = 1035
+  RNGP_GRAMMAR_CONTENT = 1036
+  RNGP_GRAMMAR_EMPTY = 1037
+  RNGP_GRAMMAR_MISSING = 1038
+  RNGP_GRAMMAR_NO_START = 1039
+  RNGP_GROUP_ATTR_CONFLICT = 1040
+  RNGP_HREF_ERROR = 1041
+  RNGP_INCLUDE_EMPTY = 1042
+  RNGP_INCLUDE_FAILURE = 1043
+  RNGP_INCLUDE_RECURSE = 1044
+  RNGP_INTERLEAVE_ADD = 1045
+  RNGP_INTERLEAVE_CREATE_FAILED = 1046
+  RNGP_INTERLEAVE_EMPTY = 1047
+  RNGP_INTERLEAVE_NO_CONTENT = 1048
+  RNGP_INVALID_DEFINE_NAME = 1049
+  RNGP_INVALID_URI = 1050
+  RNGP_INVALID_VALUE = 1051
+  RNGP_MISSING_HREF = 1052
+  RNGP_NAME_MISSING = 1053
+  RNGP_NEED_COMBINE = 1054
+  RNGP_NOTALLOWED_NOT_EMPTY = 1055
+  RNGP_NSNAME_ATTR_ANCESTOR = 1056
+  RNGP_NSNAME_NO_NS = 1057
+  RNGP_PARAM_FORBIDDEN = 1058
+  RNGP_PARAM_NAME_MISSING = 1059
+  RNGP_PARENTREF_CREATE_FAILED = 1060
+  RNGP_PARENTREF_NAME_INVALID = 1061
+  RNGP_PARENTREF_NOT_EMPTY = 1064
+  RNGP_PARENTREF_NO_NAME = 1062
+  RNGP_PARENTREF_NO_PARENT = 1063
+  RNGP_PARSE_ERROR = 1065
+  RNGP_PAT_ANYNAME_EXCEPT_ANYNAME = 1066
+  RNGP_PAT_ATTR_ATTR = 1067
+  RNGP_PAT_ATTR_ELEM = 1068
+  RNGP_PAT_DATA_EXCEPT_ATTR = 1069
+  RNGP_PAT_DATA_EXCEPT_ELEM = 1070
+  RNGP_PAT_DATA_EXCEPT_EMPTY = 1071
+  RNGP_PAT_DATA_EXCEPT_GROUP = 1072
+  RNGP_PAT_DATA_EXCEPT_INTERLEAVE = 1073
+  RNGP_PAT_DATA_EXCEPT_LIST = 1074
+  RNGP_PAT_DATA_EXCEPT_ONEMORE = 1075
+  RNGP_PAT_DATA_EXCEPT_REF = 1076
+  RNGP_PAT_DATA_EXCEPT_TEXT = 1077
+  RNGP_PAT_LIST_ATTR = 1078
+  RNGP_PAT_LIST_ELEM = 1079
+  RNGP_PAT_LIST_INTERLEAVE = 1080
+  RNGP_PAT_LIST_LIST = 1081
+  RNGP_PAT_LIST_REF = 1082
+  RNGP_PAT_LIST_TEXT = 1083
+  RNGP_PAT_NSNAME_EXCEPT_ANYNAME = 1084
+  RNGP_PAT_NSNAME_EXCEPT_NSNAME = 1085
+  RNGP_PAT_ONEMORE_GROUP_ATTR = 1086
+  RNGP_PAT_ONEMORE_INTERLEAVE_ATTR = 1087
+  RNGP_PAT_START_ATTR = 1088
+  RNGP_PAT_START_DATA = 1089
+  RNGP_PAT_START_EMPTY = 1090
+  RNGP_PAT_START_GROUP = 1091
+  RNGP_PAT_START_INTERLEAVE = 1092
+  RNGP_PAT_START_LIST = 1093
+  RNGP_PAT_START_ONEMORE = 1094
+  RNGP_PAT_START_TEXT = 1095
+  RNGP_PAT_START_VALUE = 1096
+  RNGP_PREFIX_UNDEFINED = 1097
+  RNGP_REF_CREATE_FAILED = 1098
+  RNGP_REF_CYCLE = 1099
+  RNGP_REF_NAME_INVALID = 1100
+  RNGP_REF_NOT_EMPTY = 1103
+  RNGP_REF_NO_DEF = 1101
+  RNGP_REF_NO_NAME = 1102
+  RNGP_START_CHOICE_AND_INTERLEAVE = 1104
+  RNGP_START_CONTENT = 1105
+  RNGP_START_EMPTY = 1106
+  RNGP_START_MISSING = 1107
+  RNGP_TEXT_EXPECTED = 1108
+  RNGP_TEXT_HAS_CHILD = 1109
+  RNGP_TYPE_MISSING = 1110
+  RNGP_TYPE_NOT_FOUND = 1111
+  RNGP_TYPE_VALUE = 1112
+  RNGP_UNKNOWN_ATTRIBUTE = 1113
+  RNGP_UNKNOWN_COMBINE = 1114
+  RNGP_UNKNOWN_CONSTRUCT = 1115
+  RNGP_UNKNOWN_TYPE_LIB = 1116
+  RNGP_URI_FRAGMENT = 1117
+  RNGP_URI_NOT_ABSOLUTE = 1118
+  RNGP_VALUE_EMPTY = 1119
+  RNGP_VALUE_NO_CONTENT = 1120
+  RNGP_XMLNS_NAME = 1121
+  RNGP_XML_NS = 1122
+  SAVE_CHAR_INVALID = 1401
+  SAVE_NOT_UTF8 = 1400
+  SAVE_NO_DOCTYPE = 1402
+  SAVE_UNKNOWN_ENCODING = 1403
+  SCHEMAP_AG_PROPS_CORRECT = 3087
+  SCHEMAP_ATTRFORMDEFAULT_VALUE = 1701
+  SCHEMAP_ATTRGRP_NONAME_NOREF = 1702
+  SCHEMAP_ATTR_NONAME_NOREF = 1703
+  SCHEMAP_AU_PROPS_CORRECT = 3089
+  SCHEMAP_AU_PROPS_CORRECT_2 = 3078
+  SCHEMAP_A_PROPS_CORRECT_2 = 3079
+  SCHEMAP_A_PROPS_CORRECT_3 = 3090
+  SCHEMAP_COMPLEXTYPE_NONAME_NOREF = 1704
+  SCHEMAP_COS_ALL_LIMITED = 3091
+  SCHEMAP_COS_CT_EXTENDS_1_1 = 3063
+  SCHEMAP_COS_CT_EXTENDS_1_2 = 3088
+  SCHEMAP_COS_CT_EXTENDS_1_3 = 1800
+  SCHEMAP_COS_ST_DERIVED_OK_2_1 = 3031
+  SCHEMAP_COS_ST_DERIVED_OK_2_2 = 3032
+  SCHEMAP_COS_ST_RESTRICTS_1_1 = 3011
+  SCHEMAP_COS_ST_RESTRICTS_1_2 = 3012
+  SCHEMAP_COS_ST_RESTRICTS_1_3_1 = 3013
+  SCHEMAP_COS_ST_RESTRICTS_1_3_2 = 3014
+  SCHEMAP_COS_ST_RESTRICTS_2_1 = 3015
+  SCHEMAP_COS_ST_RESTRICTS_2_3_1_1 = 3016
+  SCHEMAP_COS_ST_RESTRICTS_2_3_1_2 = 3017
+  SCHEMAP_COS_ST_RESTRICTS_2_3_2_1 = 3018
+  SCHEMAP_COS_ST_RESTRICTS_2_3_2_2 = 3019
+  SCHEMAP_COS_ST_RESTRICTS_2_3_2_3 = 3020
+  SCHEMAP_COS_ST_RESTRICTS_2_3_2_4 = 3021
+  SCHEMAP_COS_ST_RESTRICTS_2_3_2_5 = 3022
+  SCHEMAP_COS_ST_RESTRICTS_3_1 = 3023
+  SCHEMAP_COS_ST_RESTRICTS_3_3_1 = 3024
+  SCHEMAP_COS_ST_RESTRICTS_3_3_1_2 = 3025
+  SCHEMAP_COS_ST_RESTRICTS_3_3_2_1 = 3027
+  SCHEMAP_COS_ST_RESTRICTS_3_3_2_2 = 3026
+  SCHEMAP_COS_ST_RESTRICTS_3_3_2_3 = 3028
+  SCHEMAP_COS_ST_RESTRICTS_3_3_2_4 = 3029
+  SCHEMAP_COS_ST_RESTRICTS_3_3_2_5 = 3030
+  SCHEMAP_COS_VALID_DEFAULT_1 = 3058
+  SCHEMAP_COS_VALID_DEFAULT_2_1 = 3059
+  SCHEMAP_COS_VALID_DEFAULT_2_2_1 = 3060
+  SCHEMAP_COS_VALID_DEFAULT_2_2_2 = 3061
+  SCHEMAP_CT_PROPS_CORRECT_1 = 1782
+  SCHEMAP_CT_PROPS_CORRECT_2 = 1783
+  SCHEMAP_CT_PROPS_CORRECT_3 = 1784
+  SCHEMAP_CT_PROPS_CORRECT_4 = 1785
+  SCHEMAP_CT_PROPS_CORRECT_5 = 1786
+  SCHEMAP_CVC_SIMPLE_TYPE = 3062
+  SCHEMAP_C_PROPS_CORRECT = 3080
+  SCHEMAP_DEF_AND_PREFIX = 1768
+  SCHEMAP_DERIVATION_OK_RESTRICTION_1 = 1787
+  SCHEMAP_DERIVATION_OK_RESTRICTION_2_1_1 = 1788
+  SCHEMAP_DERIVATION_OK_RESTRICTION_2_1_2 = 1789
+  SCHEMAP_DERIVATION_OK_RESTRICTION_2_1_3 = 3077
+  SCHEMAP_DERIVATION_OK_RESTRICTION_2_2 = 1790
+  SCHEMAP_DERIVATION_OK_RESTRICTION_3 = 1791
+  SCHEMAP_DERIVATION_OK_RESTRICTION_4_1 = 1797
+  SCHEMAP_DERIVATION_OK_RESTRICTION_4_2 = 1798
+  SCHEMAP_DERIVATION_OK_RESTRICTION_4_3 = 1799
+  SCHEMAP_ELEMFORMDEFAULT_VALUE = 1705
+  SCHEMAP_ELEM_DEFAULT_FIXED = 1755
+  SCHEMAP_ELEM_NONAME_NOREF = 1706
+  SCHEMAP_EXTENSION_NO_BASE = 1707
+  SCHEMAP_E_PROPS_CORRECT_2 = 3045
+  SCHEMAP_E_PROPS_CORRECT_3 = 3046
+  SCHEMAP_E_PROPS_CORRECT_4 = 3047
+  SCHEMAP_E_PROPS_CORRECT_5 = 3048
+  SCHEMAP_E_PROPS_CORRECT_6 = 3049
+  SCHEMAP_FACET_NO_VALUE = 1708
+  SCHEMAP_FAILED_BUILD_IMPORT = 1709
+  SCHEMAP_FAILED_LOAD = 1757
+  SCHEMAP_FAILED_PARSE = 1766
+  SCHEMAP_GROUP_NONAME_NOREF = 1710
+  SCHEMAP_IMPORT_NAMESPACE_NOT_URI = 1711
+  SCHEMAP_IMPORT_REDEFINE_NSNAME = 1712
+  SCHEMAP_IMPORT_SCHEMA_NOT_URI = 1713
+  SCHEMAP_INCLUDE_SCHEMA_NOT_URI = 1770
+  SCHEMAP_INCLUDE_SCHEMA_NO_URI = 1771
+  SCHEMAP_INTERNAL = 3069
+  SCHEMAP_INTERSECTION_NOT_EXPRESSIBLE = 1793
+  SCHEMAP_INVALID_ATTR_COMBINATION = 1777
+  SCHEMAP_INVALID_ATTR_INLINE_COMBINATION = 1778
+  SCHEMAP_INVALID_ATTR_NAME = 1780
+  SCHEMAP_INVALID_ATTR_USE = 1774
+  SCHEMAP_INVALID_BOOLEAN = 1714
+  SCHEMAP_INVALID_ENUM = 1715
+  SCHEMAP_INVALID_FACET = 1716
+  SCHEMAP_INVALID_FACET_VALUE = 1717
+  SCHEMAP_INVALID_MAXOCCURS = 1718
+  SCHEMAP_INVALID_MINOCCURS = 1719
+  SCHEMAP_INVALID_REF_AND_SUBTYPE = 1720
+  SCHEMAP_INVALID_WHITE_SPACE = 1721
+  SCHEMAP_MG_PROPS_CORRECT_1 = 3074
+  SCHEMAP_MG_PROPS_CORRECT_2 = 3075
+  SCHEMAP_MISSING_SIMPLETYPE_CHILD = 1779
+  SCHEMAP_NOATTR_NOREF = 1722
+  SCHEMAP_NOROOT = 1759
+  SCHEMAP_NOTATION_NO_NAME = 1723
+  SCHEMAP_NOTHING_TO_PARSE = 1758
+  SCHEMAP_NOTYPE_NOREF = 1724
+  SCHEMAP_NOT_DETERMINISTIC = 3070
+  SCHEMAP_NOT_SCHEMA = 1772
+  SCHEMAP_NO_XMLNS = 3056
+  SCHEMAP_NO_XSI = 3057
+  SCHEMAP_PREFIX_UNDEFINED = 1700
+  SCHEMAP_P_PROPS_CORRECT_1 = 3042
+  SCHEMAP_P_PROPS_CORRECT_2_1 = 3043
+  SCHEMAP_P_PROPS_CORRECT_2_2 = 3044
+  SCHEMAP_RECURSIVE = 1775
+  SCHEMAP_REDEFINED_ATTR = 1764
+  SCHEMAP_REDEFINED_ATTRGROUP = 1763
+  SCHEMAP_REDEFINED_ELEMENT = 1762
+  SCHEMAP_REDEFINED_GROUP = 1760
+  SCHEMAP_REDEFINED_NOTATION = 1765
+  SCHEMAP_REDEFINED_TYPE = 1761
+  SCHEMAP_REF_AND_CONTENT = 1781
+  SCHEMAP_REF_AND_SUBTYPE = 1725
+  SCHEMAP_REGEXP_INVALID = 1756
+  SCHEMAP_RESTRICTION_NONAME_NOREF = 1726
+  SCHEMAP_S4S_ATTR_INVALID_VALUE = 3037
+  SCHEMAP_S4S_ATTR_MISSING = 3036
+  SCHEMAP_S4S_ATTR_NOT_ALLOWED = 3035
+  SCHEMAP_S4S_ELEM_MISSING = 3034
+  SCHEMAP_S4S_ELEM_NOT_ALLOWED = 3033
+  SCHEMAP_SIMPLETYPE_NONAME = 1727
+  SCHEMAP_SRC_ATTRIBUTE_1 = 3051
+  SCHEMAP_SRC_ATTRIBUTE_2 = 3052
+  SCHEMAP_SRC_ATTRIBUTE_3_1 = 3053
+  SCHEMAP_SRC_ATTRIBUTE_3_2 = 3054
+  SCHEMAP_SRC_ATTRIBUTE_4 = 3055
+  SCHEMAP_SRC_ATTRIBUTE_GROUP_1 = 3071
+  SCHEMAP_SRC_ATTRIBUTE_GROUP_2 = 3072
+  SCHEMAP_SRC_ATTRIBUTE_GROUP_3 = 3073
+  SCHEMAP_SRC_CT_1 = 3076
+  SCHEMAP_SRC_ELEMENT_1 = 3038
+  SCHEMAP_SRC_ELEMENT_2_1 = 3039
+  SCHEMAP_SRC_ELEMENT_2_2 = 3040
+  SCHEMAP_SRC_ELEMENT_3 = 3041
+  SCHEMAP_SRC_IMPORT = 3082
+  SCHEMAP_SRC_IMPORT_1_1 = 3064
+  SCHEMAP_SRC_IMPORT_1_2 = 3065
+  SCHEMAP_SRC_IMPORT_2 = 3066
+  SCHEMAP_SRC_IMPORT_2_1 = 3067
+  SCHEMAP_SRC_IMPORT_2_2 = 3068
+  SCHEMAP_SRC_IMPORT_3_1 = 1795
+  SCHEMAP_SRC_IMPORT_3_2 = 1796
+  SCHEMAP_SRC_INCLUDE = 3050
+  SCHEMAP_SRC_LIST_ITEMTYPE_OR_SIMPLETYPE = 3006
+  SCHEMAP_SRC_REDEFINE = 3081
+  SCHEMAP_SRC_RESOLVE = 3004
+  SCHEMAP_SRC_RESTRICTION_BASE_OR_SIMPLETYPE = 3005
+  SCHEMAP_SRC_SIMPLE_TYPE_1 = 3000
+  SCHEMAP_SRC_SIMPLE_TYPE_2 = 3001
+  SCHEMAP_SRC_SIMPLE_TYPE_3 = 3002
+  SCHEMAP_SRC_SIMPLE_TYPE_4 = 3003
+  SCHEMAP_SRC_UNION_MEMBERTYPES_OR_SIMPLETYPES = 3007
+  SCHEMAP_ST_PROPS_CORRECT_1 = 3008
+  SCHEMAP_ST_PROPS_CORRECT_2 = 3009
+  SCHEMAP_ST_PROPS_CORRECT_3 = 3010
+  SCHEMAP_SUPERNUMEROUS_LIST_ITEM_TYPE = 1776
+  SCHEMAP_TYPE_AND_SUBTYPE = 1728
+  SCHEMAP_UNION_NOT_EXPRESSIBLE = 1794
+  SCHEMAP_UNKNOWN_ALL_CHILD = 1729
+  SCHEMAP_UNKNOWN_ANYATTRIBUTE_CHILD = 1730
+  SCHEMAP_UNKNOWN_ATTRGRP_CHILD = 1732
+  SCHEMAP_UNKNOWN_ATTRIBUTE_GROUP = 1733
+  SCHEMAP_UNKNOWN_ATTR_CHILD = 1731
+  SCHEMAP_UNKNOWN_BASE_TYPE = 1734
+  SCHEMAP_UNKNOWN_CHOICE_CHILD = 1735
+  SCHEMAP_UNKNOWN_COMPLEXCONTENT_CHILD = 1736
+  SCHEMAP_UNKNOWN_COMPLEXTYPE_CHILD = 1737
+  SCHEMAP_UNKNOWN_ELEM_CHILD = 1738
+  SCHEMAP_UNKNOWN_EXTENSION_CHILD = 1739
+  SCHEMAP_UNKNOWN_FACET_CHILD = 1740
+  SCHEMAP_UNKNOWN_FACET_TYPE = 1741
+  SCHEMAP_UNKNOWN_GROUP_CHILD = 1742
+  SCHEMAP_UNKNOWN_IMPORT_CHILD = 1743
+  SCHEMAP_UNKNOWN_INCLUDE_CHILD = 1769
+  SCHEMAP_UNKNOWN_LIST_CHILD = 1744
+  SCHEMAP_UNKNOWN_MEMBER_TYPE = 1773
+  SCHEMAP_UNKNOWN_NOTATION_CHILD = 1745
+  SCHEMAP_UNKNOWN_PREFIX = 1767
+  SCHEMAP_UNKNOWN_PROCESSCONTENT_CHILD = 1746
+  SCHEMAP_UNKNOWN_REF = 1747
+  SCHEMAP_UNKNOWN_RESTRICTION_CHILD = 1748
+  SCHEMAP_UNKNOWN_SCHEMAS_CHILD = 1749
+  SCHEMAP_UNKNOWN_SEQUENCE_CHILD = 1750
+  SCHEMAP_UNKNOWN_SIMPLECONTENT_CHILD = 1751
+  SCHEMAP_UNKNOWN_SIMPLETYPE_CHILD = 1752
+  SCHEMAP_UNKNOWN_TYPE = 1753
+  SCHEMAP_UNKNOWN_UNION_CHILD = 1754
+  SCHEMAP_WARN_ATTR_POINTLESS_PROH = 3086
+  SCHEMAP_WARN_ATTR_REDECL_PROH = 3085
+  SCHEMAP_WARN_SKIP_SCHEMA = 3083
+  SCHEMAP_WARN_UNLOCATED_SCHEMA = 3084
+  SCHEMAP_WILDCARD_INVALID_NS_MEMBER = 1792
+  SCHEMATRONV_ASSERT = 4000
+  SCHEMATRONV_REPORT = 4001
+  SCHEMAV_ATTRINVALID = 1821
+  SCHEMAV_ATTRUNKNOWN = 1820
+  SCHEMAV_CONSTRUCT = 1817
+  SCHEMAV_CVC_ATTRIBUTE_1 = 1861
+  SCHEMAV_CVC_ATTRIBUTE_2 = 1862
+  SCHEMAV_CVC_ATTRIBUTE_3 = 1863
+  SCHEMAV_CVC_ATTRIBUTE_4 = 1864
+  SCHEMAV_CVC_AU = 1874
+  SCHEMAV_CVC_COMPLEX_TYPE_1 = 1873
+  SCHEMAV_CVC_COMPLEX_TYPE_2_1 = 1841
+  SCHEMAV_CVC_COMPLEX_TYPE_2_2 = 1842
+  SCHEMAV_CVC_COMPLEX_TYPE_2_3 = 1843
+  SCHEMAV_CVC_COMPLEX_TYPE_2_4 = 1844
+  SCHEMAV_CVC_COMPLEX_TYPE_3_1 = 1865
+  SCHEMAV_CVC_COMPLEX_TYPE_3_2_1 = 1866
+  SCHEMAV_CVC_COMPLEX_TYPE_3_2_2 = 1867
+  SCHEMAV_CVC_COMPLEX_TYPE_4 = 1868
+  SCHEMAV_CVC_COMPLEX_TYPE_5_1 = 1869
+  SCHEMAV_CVC_COMPLEX_TYPE_5_2 = 1870
+  SCHEMAV_CVC_DATATYPE_VALID_1_2_1 = 1824
+  SCHEMAV_CVC_DATATYPE_VALID_1_2_2 = 1825
+  SCHEMAV_CVC_DATATYPE_VALID_1_2_3 = 1826
+  SCHEMAV_CVC_ELT_1 = 1845
+  SCHEMAV_CVC_ELT_2 = 1846
+  SCHEMAV_CVC_ELT_3_1 = 1847
+  SCHEMAV_CVC_ELT_3_2_1 = 1848
+  SCHEMAV_CVC_ELT_3_2_2 = 1849
+  SCHEMAV_CVC_ELT_4_1 = 1850
+  SCHEMAV_CVC_ELT_4_2 = 1851
+  SCHEMAV_CVC_ELT_4_3 = 1852
+  SCHEMAV_CVC_ELT_5_1_1 = 1853
+  SCHEMAV_CVC_ELT_5_1_2 = 1854
+  SCHEMAV_CVC_ELT_5_2_1 = 1855
+  SCHEMAV_CVC_ELT_5_2_2_1 = 1856
+  SCHEMAV_CVC_ELT_5_2_2_2_1 = 1857
+  SCHEMAV_CVC_ELT_5_2_2_2_2 = 1858
+  SCHEMAV_CVC_ELT_6 = 1859
+  SCHEMAV_CVC_ELT_7 = 1860
+  SCHEMAV_CVC_ENUMERATION_VALID = 1840
+  SCHEMAV_CVC_FACET_VALID = 1829
+  SCHEMAV_CVC_FRACTIONDIGITS_VALID = 1838
+  SCHEMAV_CVC_IDC = 1877
+  SCHEMAV_CVC_LENGTH_VALID = 1830
+  SCHEMAV_CVC_MAXEXCLUSIVE_VALID = 1836
+  SCHEMAV_CVC_MAXINCLUSIVE_VALID = 1834
+  SCHEMAV_CVC_MAXLENGTH_VALID = 1832
+  SCHEMAV_CVC_MINEXCLUSIVE_VALID = 1835
+  SCHEMAV_CVC_MININCLUSIVE_VALID = 1833
+  SCHEMAV_CVC_MINLENGTH_VALID = 1831
+  SCHEMAV_CVC_PATTERN_VALID = 1839
+  SCHEMAV_CVC_TOTALDIGITS_VALID = 1837
+  SCHEMAV_CVC_TYPE_1 = 1875
+  SCHEMAV_CVC_TYPE_2 = 1876
+  SCHEMAV_CVC_TYPE_3_1_1 = 1827
+  SCHEMAV_CVC_TYPE_3_1_2 = 1828
+  SCHEMAV_CVC_WILDCARD = 1878
+  SCHEMAV_DOCUMENT_ELEMENT_MISSING = 1872
+  SCHEMAV_ELEMCONT = 1810
+  SCHEMAV_ELEMENT_CONTENT = 1871
+  SCHEMAV_EXTRACONTENT = 1813
+  SCHEMAV_FACET = 1823
+  SCHEMAV_HAVEDEFAULT = 1811
+  SCHEMAV_INTERNAL = 1818
+  SCHEMAV_INVALIDATTR = 1814
+  SCHEMAV_INVALIDELEM = 1815
+  SCHEMAV_ISABSTRACT = 1808
+  SCHEMAV_MISC = 1879
+  SCHEMAV_MISSING = 1804
+  SCHEMAV_NOROLLBACK = 1807
+  SCHEMAV_NOROOT = 1801
+  SCHEMAV_NOTDETERMINIST = 1816
+  SCHEMAV_NOTEMPTY = 1809
+  SCHEMAV_NOTNILLABLE = 1812
+  SCHEMAV_NOTSIMPLE = 1819
+  SCHEMAV_NOTTOPLEVEL = 1803
+  SCHEMAV_NOTYPE = 1806
+  SCHEMAV_UNDECLAREDELEM = 1802
+  SCHEMAV_VALUE = 1822
+  SCHEMAV_WRONGELEM = 1805
+  TREE_INVALID_DEC = 1301
+  TREE_INVALID_HEX = 1300
+  TREE_NOT_UTF8 = 1303
+  TREE_UNTERMINATED_ENTITY = 1302
+  WAR_CATALOG_PI = 93
+  WAR_ENTITY_REDEFINED = 107
+  WAR_LANG_VALUE = 98
+  WAR_NS_COLUMN = 106
+  WAR_NS_URI = 99
+  WAR_NS_URI_RELATIVE = 100
+  WAR_SPACE_VALUE = 102
+  WAR_UNDECLARED_ENTITY = 27
+  WAR_UNKNOWN_VERSION = 97
+  XINCLUDE_BUILD_FAILED = 1609
+  XINCLUDE_DEPRECATED_NS = 1617
+  XINCLUDE_ENTITY_DEF_MISMATCH = 1602
+  XINCLUDE_FALLBACKS_IN_INCLUDE = 1615
+  XINCLUDE_FALLBACK_NOT_IN_INCLUDE = 1616
+  XINCLUDE_FRAGMENT_ID = 1618
+  XINCLUDE_HREF_URI = 1605
+  XINCLUDE_INCLUDE_IN_INCLUDE = 1614
+  XINCLUDE_INVALID_CHAR = 1608
+  XINCLUDE_MULTIPLE_ROOT = 1611
+  XINCLUDE_NO_FALLBACK = 1604
+  XINCLUDE_NO_HREF = 1603
+  XINCLUDE_PARSE_VALUE = 1601
+  XINCLUDE_RECURSION = 1600
+  XINCLUDE_TEXT_DOCUMENT = 1607
+  XINCLUDE_TEXT_FRAGMENT = 1606
+  XINCLUDE_UNKNOWN_ENCODING = 1610
+  XINCLUDE_XPTR_FAILED = 1612
+  XINCLUDE_XPTR_RESULT = 1613
+  XPATH_ENCODING_ERROR = 1220
+  XPATH_EXPRESSION_OK = 1200
+  XPATH_EXPR_ERROR = 1207
+  XPATH_INVALID_ARITY = 1212
+  XPATH_INVALID_CHAR_ERROR = 1221
+  XPATH_INVALID_CTXT_POSITION = 1214
+  XPATH_INVALID_CTXT_SIZE = 1213
+  XPATH_INVALID_OPERAND = 1210
+  XPATH_INVALID_PREDICATE_ERROR = 1206
+  XPATH_INVALID_TYPE = 1211
+  XPATH_MEMORY_ERROR = 1215
+  XPATH_NUMBER_ERROR = 1201
+  XPATH_START_LITERAL_ERROR = 1203
+  XPATH_UNCLOSED_ERROR = 1208
+  XPATH_UNDEF_PREFIX_ERROR = 1219
+  XPATH_UNDEF_VARIABLE_ERROR = 1205
+  XPATH_UNFINISHED_LITERAL_ERROR = 1202
+  XPATH_UNKNOWN_FUNC_ERROR = 1209
+  XPATH_VARIABLE_REF_ERROR = 1204
+  XPTR_CHILDSEQ_START = 1901
+  XPTR_EVAL_FAILED = 1902
+  XPTR_EXTRA_OBJECTS = 1903
+  XPTR_RESOURCE_ERROR = 1217
+  XPTR_SUB_RESOURCE_ERROR = 1218
+  XPTR_SYNTAX_ERROR = 1216
+  XPTR_UNKNOWN_SCHEME = 1900
+
+  def _getName(self, k, d=None):
+    """ D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None. """
+    return None
+
+  _names = {}
+
+def Extension():
+  """ Extension(module, function_mapping=None, ns=None)
+  
+      Build a dictionary of extension functions from the functions
+      defined in a module or the methods of an object.
+  
+      As second argument, you can pass an additional mapping of
+      attribute names to XPath function names, or a list of function
+      names that should be taken.
+  
+      The ``ns`` keyword argument accepts a namespace URI for the XPath
+      functions.
+       """
+  pass
+
+class FallbackElementClassLookup(ElementClassLookup):
+  """ FallbackElementClassLookup(self, fallback=None)
+  
+      Superclass of Element class lookups with additional fallback.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  fallback = property(None, None, None,
+                      )
+
+
+  def set_fallback(self, lookup):
+    """ set_fallback(self, lookup)
+    
+            Sets the fallback scheme for this lookup method.
+             """
+    pass
+
+def FunctionNamespace(ns_uri):
+  """ FunctionNamespace(ns_uri)
+  
+      Retrieve the function namespace object associated with the given
+      URI.
+  
+      Creates a new one if it does not yet exist. A function namespace
+      can only be used to register extension functions. """
+  pass
+
+def HTML(arg0):
+  """ HTML(text, parser=None, base_url=None)
+  
+      Parses an HTML document from a string constant.  Returns the root
+      node (or the result returned by a parser target).  This function
+      can be used to embed "HTML literals" in Python code.
+  
+      To override the parser with a different ``HTMLParser`` you can pass it to
+      the ``parser`` keyword argument.
+  
+      The ``base_url`` keyword argument allows to set the original base URL of
+      the document to support relative Paths when looking up external entities
+      (DTD, XInclude, ...).
+       """
+  pass
+
+class HTMLParser(_FeedParser):
+  """ HTMLParser(self, encoding=None, remove_blank_text=False,                    remove_comments=False, remove_pis=False, strip_cdata=True,                    no_network=True, target=None, XMLSchema schema=None,                    recover=True, compact=True)
+  
+      The HTML parser.
+  
+      This parser allows reading HTML into a normal XML tree.  By
+      default, it can read broken (non well-formed) HTML, depending on
+      the capabilities of libxml2.  Use the 'recover' option to switch
+      this off.
+  
+      Available boolean keyword arguments:
+  
+      - recover            - try hard to parse through broken HTML (default: True)
+      - no_network         - prevent network access for related files (default: True)
+      - remove_blank_text  - discard empty text nodes
+      - remove_comments    - discard comments
+      - remove_pis         - discard processing instructions
+      - strip_cdata        - replace CDATA sections by normal text content (default: True)
+      - compact            - safe memory for short text content (default: True)
+  
+      Other keyword arguments:
+  
+      - encoding - override the document encoding
+      - target   - a parser target object that will receive the parse events
+      - schema   - an XMLSchema to validate against
+  
+      Note that you should avoid sharing parsers between threads for performance
+      reasons.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+LIBXML_COMPILED_VERSION = ()
+LIBXML_VERSION = ()
+LIBXSLT_COMPILED_VERSION = ()
+LIBXSLT_VERSION = ()
+LXML_VERSION = ()
+
+class LxmlError(Error):
+  """ Main exception base class for lxml.  All other exceptions inherit from
+      this one.
+       """
+
+  def __init__(self):
+    pass
+
+class LxmlRegistryError(LxmlError):
+  """ Base class of lxml registry errors.
+       """
+
+  def __init__(self):
+    pass
+
+class LxmlSyntaxError(LxmlError):
+  """ Base class for all syntax errors.
+       """
+
+  def __init__(self):
+    pass
+
+class NamespaceRegistryError(LxmlRegistryError):
+  """ Error registering a namespace extension.
+       """
+
+  def __init__(self):
+    pass
+
+def PI():
+  """ ProcessingInstruction(target, text=None)
+  
+      ProcessingInstruction element factory. This factory function creates a
+      special element that will be serialized as an XML processing instruction.
+       """
+  pass
+
+class PIBase(_ProcessingInstruction):
+  """ All custom Processing Instruction classes must inherit from this one.
+  
+      To create an XML ProcessingInstruction instance, use the ``PI()``
+      factory.
+  
+      Subclasses *must not* override __init__ or __new__ as it is
+      absolutely undefined when these objects will be created or
+      destroyed.  All persistent state of PIs must be stored in the
+      underlying XML.  If you really need to initialize the object after
+      creation, you can implement an ``_init(self)`` method that will be
+      called after object creation.
+       """
+
+  def __init__(self):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class ParseError(LxmlSyntaxError):
+  """ Syntax error while parsing an XML document.
+  
+      For compatibility with ElementTree 1.3 and later.
+       """
+
+  def __init__(self):
+    pass
+
+class ParserBasedElementClassLookup(FallbackElementClassLookup):
+  """ ParserBasedElementClassLookup(self, fallback=None)
+      Element class lookup based on the XML parser.
+       """
+
+  pass
+
+class ParserError(LxmlError):
+  """ Internal lxml parser error.
+       """
+
+  def __init__(self):
+    pass
+
+def ProcessingInstruction():
+  """ ProcessingInstruction(target, text=None)
+  
+      ProcessingInstruction element factory. This factory function creates a
+      special element that will be serialized as an XML processing instruction.
+       """
+  pass
+
+class PyErrorLog(_BaseErrorLog):
+  """ PyErrorLog(self, logger_name=None, logger=None)
+      A global error log that connects to the Python stdlib logging package.
+  
+      The constructor accepts an optional logger name or a readily
+      instantiated logger instance.
+  
+      If you want to change the mapping between libxml2's ErrorLevels and Python
+      logging levels, you can modify the level_map dictionary from a subclass.
+  
+      The default mapping is::
+  
+              ErrorLevels.WARNING = logging.WARNING
+              ErrorLevels.ERROR   = logging.ERROR
+              ErrorLevels.FATAL   = logging.CRITICAL
+  
+      You can also override the method ``receive()`` that takes a LogEntry
+      object and calls ``self.log(log_entry, format_string, arg1, arg2, ...)``
+      with appropriate data.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    return None
+
+  def copy(self):
+    """ Dummy method that returns an empty error log.
+             """
+    pass
+
+  level_map = property(None, None, None,
+                       )
+
+
+  def log(self, log_entry, message, arg0):
+    """ log(self, log_entry, message, *args)
+    
+            Called by the .receive() method to log a _LogEntry instance to
+            the Python logging system.  This handles the error level
+            mapping.
+    
+            In the default implementation, the ``message`` argument
+            receives a complete log line, and there are no further
+            ``args``.  To change the message format, it is best to
+            override the .receive() method instead of this one.
+             """
+    pass
+
+  def receive(self, log_entry):
+    """ receive(self, log_entry)
+    
+            Receive a _LogEntry instance from the logging system.  Calls
+            the .log() method with appropriate parameters::
+    
+                self.log(log_entry, repr(log_entry))
+    
+            You can override this method to provide your own log output
+            format.
+             """
+    pass
+
+class PythonElementClassLookup(FallbackElementClassLookup):
+  """ PythonElementClassLookup(self, fallback=None)
+      Element class lookup based on a subclass method.
+  
+      This class lookup scheme allows access to the entire XML tree in
+      read-only mode.  To use it, re-implement the ``lookup(self, doc,
+      root)`` method in a subclass::
+  
+          >>> from lxml import etree, pyclasslookup
+          >>>
+          >>> class MyElementClass(etree.ElementBase):
+          ...     honkey = True
+          ...
+          >>> class MyLookup(pyclasslookup.PythonElementClassLookup):
+          ...     def lookup(self, doc, root):
+          ...         if root.tag == "sometag":
+          ...             return MyElementClass
+          ...         else:
+          ...             for child in root:
+          ...                 if child.tag == "someothertag":
+          ...                     return MyElementClass
+          ...         # delegate to default
+          ...         return None
+  
+      If you return None from this method, the fallback will be called.
+  
+      The first argument is the opaque document instance that contains
+      the Element.  The second argument is a lightweight Element proxy
+      implementation that is only valid during the lookup.  Do not try
+      to keep a reference to it.  Once the lookup is done, the proxy
+      will be invalid.
+  
+      Also, you cannot wrap such a read-only Element in an ElementTree,
+      and you must take care not to keep a reference to them outside of
+      the `lookup()` method.
+  
+      Note that the API of the Element objects is not complete.  It is
+      purely read-only and does not support all features of the normal
+      `lxml.etree` API (such as XPath, extended slicing or some
+      iteration methods).
+  
+      See http://codespeak.net/lxml/element_classes.html
+       """
+
+  def lookup(self, doc, element):
+    """ lookup(self, doc, element)
+    
+            Override this method to implement your own lookup scheme.
+             """
+    pass
+
+class QName(object):
+  """ QName(text_or_uri, tag=None)
+  
+      QName wrapper for qualified XML names.
+  
+      Pass a tag name by itself or a namespace URI and a tag name to
+      create a qualified name.
+  
+      The ``text`` property holds the qualified name in
+      ``{namespace}tagname`` notation.  The ``namespace`` and
+      ``localname`` properties hold the respective parts of the tag
+      name.
+  
+      You can pass QName objects wherever a tag name is expected.  Also,
+      setting Element text from a QName will resolve the namespace
+      prefix and set a qualified text value.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  localname = property(None, None, None,
+                       )
+
+  namespace = property(None, None, None,
+                       )
+
+  text = property(None, None, None,
+                  )
+
+
+class RelaxNG(_Validator):
+  """ RelaxNG(self, etree=None, file=None)
+      Turn a document into a Relax NG validator.
+  
+      Either pass a schema as Element or ElementTree, or pass a file or
+      filename through the ``file`` keyword argument.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class RelaxNGError(LxmlError):
+  """ Base class for RelaxNG errors.
+       """
+
+  def __init__(self):
+    pass
+
+class RelaxNGErrorTypes(object):
+  """ Libxml2 RelaxNG error types """
+
+  RELAXNG_ERR_ATTREXTRANS = 20
+  RELAXNG_ERR_ATTRNAME = 14
+  RELAXNG_ERR_ATTRNONS = 16
+  RELAXNG_ERR_ATTRVALID = 24
+  RELAXNG_ERR_ATTRWRONGNS = 18
+  RELAXNG_ERR_CONTENTVALID = 25
+  RELAXNG_ERR_DATAELEM = 28
+  RELAXNG_ERR_DATATYPE = 31
+  RELAXNG_ERR_DUPID = 4
+  RELAXNG_ERR_ELEMEXTRANS = 19
+  RELAXNG_ERR_ELEMNAME = 13
+  RELAXNG_ERR_ELEMNONS = 15
+  RELAXNG_ERR_ELEMNOTEMPTY = 21
+  RELAXNG_ERR_ELEMWRONG = 38
+  RELAXNG_ERR_ELEMWRONGNS = 17
+  RELAXNG_ERR_EXTRACONTENT = 26
+  RELAXNG_ERR_EXTRADATA = 35
+  RELAXNG_ERR_INTEREXTRA = 12
+  RELAXNG_ERR_INTERNAL = 37
+  RELAXNG_ERR_INTERNODATA = 10
+  RELAXNG_ERR_INTERSEQ = 11
+  RELAXNG_ERR_INVALIDATTR = 27
+  RELAXNG_ERR_LACKDATA = 36
+  RELAXNG_ERR_LIST = 33
+  RELAXNG_ERR_LISTELEM = 30
+  RELAXNG_ERR_LISTEMPTY = 9
+  RELAXNG_ERR_LISTEXTRA = 8
+  RELAXNG_ERR_MEMORY = 1
+  RELAXNG_ERR_NODEFINE = 7
+  RELAXNG_ERR_NOELEM = 22
+  RELAXNG_ERR_NOGRAMMAR = 34
+  RELAXNG_ERR_NOSTATE = 6
+  RELAXNG_ERR_NOTELEM = 23
+  RELAXNG_ERR_TEXTWRONG = 39
+  RELAXNG_ERR_TYPE = 2
+  RELAXNG_ERR_TYPECMP = 5
+  RELAXNG_ERR_TYPEVAL = 3
+  RELAXNG_ERR_VALELEM = 29
+  RELAXNG_ERR_VALUE = 32
+  RELAXNG_OK = 0
+
+  def _getName(self, k, d=None):
+    """ D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None. """
+    return None
+
+  _names = {}
+
+class RelaxNGParseError(RelaxNGError):
+  """ Error while parsing an XML document as RelaxNG.
+       """
+
+  def __init__(self):
+    pass
+
+class RelaxNGValidateError(RelaxNGError):
+  """ Error while validating an XML document with a RelaxNG schema.
+       """
+
+  def __init__(self):
+    pass
+
+class Resolver(object):
+  """ This is the base class of all resolvers. """
+
+  def resolve(self, system_url, public_id, context):
+    """ resolve(self, system_url, public_id, context)
+    
+            Override this method to resolve an external source by
+            ``system_url`` and ``public_id``.  The third argument is an
+            opaque context object.
+    
+            Return the result of one of the ``resolve_*()`` methods.
+             """
+    pass
+
+  def resolve_empty(self, context):
+    """ resolve_empty(self, context)
+    
+            Return an empty input document.
+    
+            Pass context as parameter.
+             """
+    pass
+
+  def resolve_file(self):
+    """ resolve_file(self, f, context, base_url=None)
+    
+            Return an open file-like object as input document.
+    
+            Pass open file and context as parameters.  You can pass the
+            base URL or filename of the file through the ``base_url``
+            keyword argument.
+    
+            Note that using ``.resolve_filename()`` is more efficient,
+            especially in threaded environments.
+             """
+    pass
+
+  def resolve_filename(self, filename, context):
+    """ resolve_filename(self, filename, context)
+    
+            Return the name of a parsable file as input document.
+    
+            Pass filename and context as parameters.  You can also pass a
+            URL with an HTTP, FTP or file target.
+             """
+    pass
+
+  def resolve_string(self):
+    """ resolve_string(self, string, context, base_url=None)
+    
+            Return a parsable string as input document.
+    
+            Pass data string and context as parameters.  You can pass the
+            source URL or filename through the ``base_url`` keyword
+            argument.
+             """
+    pass
+
+class Schematron(_Validator):
+  """ Schematron(self, etree=None, file=None)
+      A Schematron validator.
+  
+      Pass a root Element or an ElementTree to turn it into a validator.
+      Alternatively, pass a filename as keyword argument 'file' to parse from
+      the file system.
+  
+      Schematron is a less well known, but very powerful schema language.  The main
+      idea is to use the capabilities of XPath to put restrictions on the structure
+      and the content of XML documents.  Here is a simple example::
+  
+        >>> schematron = etree.Schematron(etree.XML('''
+        ... <schema xmlns="http://www.ascc.net/xml/schematron" >
+        ...   <pattern name="id is the only permited attribute name">
+        ...     <rule context="*">
+        ...       <report test="@*[not(name()=\'id\')]">Attribute
+        ...         <name path="@*[not(name()=\'id\')]"/> is forbidden<name/>
+        ...       </report>
+        ...     </rule>
+        ...   </pattern>
+        ... </schema>
+        ... '''))
+  
+        >>> xml = etree.XML('''
+        ... <AAA name="aaa">
+        ...   <BBB id="bbb"/>
+        ...   <CCC color="ccc"/>
+        ... </AAA>
+        ... ''')
+  
+        >>> schematron.validate(xml)
+        0
+  
+        >>> xml = etree.XML('''
+        ... <AAA id="aaa">
+        ...   <BBB id="bbb"/>
+        ...   <CCC/>
+        ... </AAA>
+        ... ''')
+  
+        >>> schematron.validate(xml)
+        1
+  
+      Schematron was added to libxml2 in version 2.6.21.  Before version 2.6.32,
+      however, Schematron lacked support for error reporting other than to stderr.
+      This version is therefore required to retrieve validation warnings and
+      errors in lxml.
+       """
+
+  def __init__(self, xml):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class SchematronError(LxmlError):
+  """ Base class of all Schematron errors.
+       """
+
+  def __init__(self):
+    pass
+
+class SchematronParseError(SchematronError):
+  """ Error while parsing an XML document as Schematron schema.
+       """
+
+  def __init__(self):
+    pass
+
+class SchematronValidateError(SchematronError):
+  """ Error while validating an XML document with a Schematron schema.
+       """
+
+  def __init__(self):
+    pass
+
+class SerialisationError(LxmlError):
+  """ A libxml2 error that occurred during serialisation.
+       """
+
+  def __init__(self):
+    pass
+
+def SubElement():
+  """ SubElement(_parent, _tag, attrib=None, nsmap=None, **_extra)
+  
+      Subelement factory.  This function creates an element instance, and
+      appends it to an existing element.
+       """
+  pass
+
+class TreeBuilder(_SaxParserTarget):
+  """ TreeBuilder(self, element_factory=None, parser=None)
+      Parser target that builds a tree.
+  
+      The final tree is returned by the ``close()`` method.
+       """
+
+  def __init__(self):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  def close(self):
+    """ close(self)
+    
+            Flushes the builder buffers, and returns the toplevel document
+            element.
+             """
+    pass
+
+  def comment(self, comment):
+    """ comment(self, comment)
+             """
+    pass
+
+  def data(self, data):
+    """ data(self, data)
+    
+            Adds text to the current element.  The value should be either an
+            8-bit string containing ASCII text, or a Unicode string.
+             """
+    pass
+
+  def end(self, tag):
+    """ end(self, tag)
+    
+            Closes the current element.
+             """
+    pass
+
+  def pi(self, target, data):
+    """ pi(self, target, data)
+             """
+    pass
+
+  def start(self):
+    """ start(self, tag, attrs, nsmap=None)
+    
+            Opens a new element.
+             """
+    pass
+
+class XInclude(object):
+  """ XInclude(self)
+      XInclude processor.
+  
+      Create an instance and call it on an Element to run XInclude
+      processing.
+       """
+
+  def __init__(self):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  error_log = property(None, None, None,
+                       )
+
+
+class XIncludeError(LxmlError):
+  """ Error during XInclude processing.
+       """
+
+  def __init__(self):
+    pass
+
+def XML(arg0):
+  """ XML(text, parser=None, base_url=None)
+  
+      Parses an XML document or fragment from a string constant.
+      Returns the root node (or the result returned by a parser target).
+      This function can be used to embed "XML literals" in Python code,
+      like in
+  
+         >>> root = etree.XML("<root><test/></root>")
+  
+      To override the parser with a different ``XMLParser`` you can pass it to
+      the ``parser`` keyword argument.
+  
+      The ``base_url`` keyword argument allows to set the original base URL of
+      the document to support relative Paths when looking up external entities
+      (DTD, XInclude, ...).
+       """
+  pass
+
+def XMLDTDID(arg0, arg1):
+  """ XMLDTDID(text, parser=None, base_url=None)
+  
+      Parse the text and return a tuple (root node, ID dictionary).  The root
+      node is the same as returned by the XML() function.  The dictionary
+      contains string-element pairs.  The dictionary keys are the values of ID
+      attributes as defined by the DTD.  The elements referenced by the ID are
+      stored as dictionary values.
+  
+      Note that you must not modify the XML tree if you use the ID dictionary.
+      The results are undefined.
+       """
+  pass
+
+def XMLID(arg0, arg1):
+  """ XMLID(text, parser=None, base_url=None)
+  
+      Parse the text and return a tuple (root node, ID dictionary).  The root
+      node is the same as returned by the XML() function.  The dictionary
+      contains string-element pairs.  The dictionary keys are the values of 'id'
+      attributes.  The elements referenced by the ID are stored as dictionary
+      values.
+       """
+  pass
+
+class XMLParser(_FeedParser):
+  """ XMLParser(self, encoding=None, attribute_defaults=False, dtd_validation=False, load_dtd=False, no_network=True, ns_clean=False, recover=False, XMLSchema schema=None, remove_blank_text=False, resolve_entities=True, remove_comments=False, remove_pis=False, strip_cdata=True, target=None, compact=True)
+  
+      The XML parser.
+  
+      Parsers can be supplied as additional argument to various parse
+      functions of the lxml API.  A default parser is always available
+      and can be replaced by a call to the global function
+      'set_default_parser'.  New parsers can be created at any time
+      without a major run-time overhead.
+  
+      The keyword arguments in the constructor are mainly based on the
+      libxml2 parser configuration.  A DTD will also be loaded if DTD
+      validation or attribute default values are requested (unless you
+      additionally provide an XMLSchema from which the default
+      attributes can be read).
+  
+      Available boolean keyword arguments:
+  
+      - attribute_defaults - inject default attributes from DTD or XMLSchema
+      - dtd_validation     - validate against a DTD referenced by the document
+      - load_dtd           - use DTD for parsing
+      - no_network         - prevent network access for related files (default: True)
+      - ns_clean           - clean up redundant namespace declarations
+      - recover            - try hard to parse through broken XML
+      - remove_blank_text  - discard blank text nodes
+      - remove_comments    - discard comments
+      - remove_pis         - discard processing instructions
+      - strip_cdata        - replace CDATA sections by normal text content (default: True)
+      - compact            - safe memory for short text content (default: True)
+      - resolve_entities   - replace entities by their text value (default: True)
+      - huge_tree          - disable security restrictions and support very deep trees
+                             and very long text content (only affects libxml2 2.7+)
+  
+      Other keyword arguments:
+  
+      - encoding - override the document encoding
+      - target   - a parser target object that will receive the parse events
+      - schema   - an XMLSchema to validate against
+  
+      Note that you should avoid sharing parsers between threads.  While this is
+      not harmful, it is more efficient to use separate parsers.  This does not
+      apply to the default parser.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class XMLSchema(_Validator):
+  """ XMLSchema(self, etree=None, file=None)
+      Turn a document into an XML Schema validator.
+  
+      Either pass a schema as Element or ElementTree, or pass a file or
+      filename through the ``file`` keyword argument.
+  
+      Passing the ``attribute_defaults`` boolean option will make the
+      schema insert default/fixed attributes into validated documents.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class XMLSchemaError(LxmlError):
+  """ Base class of all XML Schema errors
+       """
+
+  def __init__(self):
+    pass
+
+class XMLSchemaParseError(XMLSchemaError):
+  """ Error while parsing an XML document as XML Schema.
+       """
+
+  def __init__(self):
+    pass
+
+class XMLSchemaValidateError(XMLSchemaError):
+  """ Error while validating an XML document with an XML Schema.
+       """
+
+  def __init__(self):
+    pass
+
+class XMLSyntaxError(ParseError):
+  """ Syntax error while parsing an XML document.
+       """
+
+  def __init__(self):
+    pass
+
+XMLTreeBuilder = ETCompatXMLParser
+class XPath(_XPathEvaluatorBase):
+  """ XPath(self, path, namespaces=None, extensions=None, regexp=True, smart_strings=True)
+      A compiled XPath expression that can be called on Elements and ElementTrees.
+  
+      Besides the XPath expression, you can pass prefix-namespace
+      mappings and extension functions to the constructor through the
+      keyword arguments ``namespaces`` and ``extensions``.  EXSLT
+      regular expression support can be disabled with the 'regexp'
+      boolean keyword (defaults to True).  Smart strings will be
+      returned for string results unless you pass
+      ``smart_strings=False``.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  path = property(None, None, None,
+                  """ The literal XPath expression.
+                           """
+                  )
+
+
+class XPathDocumentEvaluator(XPathElementEvaluator):
+  """ XPathDocumentEvaluator(self, etree, namespaces=None, extensions=None, regexp=True, smart_strings=True)
+      Create an XPath evaluator for an ElementTree.
+  
+      Additional namespace declarations can be passed with the
+      'namespace' keyword argument.  EXSLT regular expression support
+      can be disabled with the 'regexp' boolean keyword (defaults to
+      True).  Smart strings will be returned for string results unless
+      you pass ``smart_strings=False``.
+       """
+
+  def __init__(self, arg0):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+class XPathError(LxmlError):
+  """ Base class of all XPath errors.
+       """
+
+  def __init__(self):
+    pass
+
+class XPathEvalError(XPathError):
+  """ Error during XPath evaluation.
+       """
+
+  def __init__(self):
+    pass
+
+def XPathEvaluator(arg0):
+  """ XPathEvaluator(etree_or_element, namespaces=None, extensions=None, regexp=True, smart_strings=True)
+  
+      Creates an XPath evaluator for an ElementTree or an Element.
+  
+      The resulting object can be called with an XPath expression as argument
+      and XPath variables provided as keyword arguments.
+  
+      Additional namespace declarations can be passed with the
+      'namespace' keyword argument.  EXSLT regular expression support
+      can be disabled with the 'regexp' boolean keyword (defaults to
+      True).  Smart strings will be returned for string results unless
+      you pass ``smart_strings=False``.
+       """
+  pass
+
+class XPathFunctionError(XPathEvalError):
+  """ Internal error looking up an XPath extension function.
+       """
+
+  def __init__(self):
+    pass
+
+class XPathResultError(XPathEvalError):
+  """ Error handling an XPath result.
+       """
+
+  def __init__(self):
+    pass
+
+class XPathSyntaxError(LxmlSyntaxError):
+
+  def __init__(self):
+    pass
+
+class XSLT(object):
+  """ XSLT(self, xslt_input, extensions=None, regexp=True, access_control=None)
+  
+      Turn an XSL document into an XSLT object.
+  
+      Calling this object on a tree or Element will execute the XSLT::
+  
+        >>> transform = etree.XSLT(xsl_tree)
+        >>> result = transform(xml_tree)
+  
+      Keyword arguments of the constructor:
+  
+      - extensions: a dict mapping ``(namespace, name)`` pairs to
+        extension functions or extension elements
+      - regexp: enable exslt regular expression support in XPath
+        (default: True)
+      - access_control: access restrictions for network or file
+        system (see `XSLTAccessControl`)
+  
+      Keyword arguments of the XSLT call:
+  
+      - profile_run: enable XSLT profiling (default: False)
+  
+      Other keyword arguments of the call are passed to the stylesheet
+      as parameters.
+       """
+
+  def __init__(self, namespace, name):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  def apply(self):
+    """ apply(self, _input,  profile_run=False, **kw)
+            
+            :deprecated: call the object, not this method. """
+    pass
+
+  error_log = property(None, None, None,
+                       """ The log of errors and warnings of an XSLT execution. """
+                       )
+
+
+  def strparam(self, strval):
+    """ strparam(strval)
+    
+            Mark an XSLT string parameter that requires quote escaping
+            before passing it into the transformation.  Use it like this::
+    
+                result = transform(doc, some_strval = XSLT.strparam(
+                    \'\'\'it\'s "Monty Python\'s" ...\'\'\'))
+    
+            Escaped string parameters can be reused without restriction.
+             """
+    pass
+
+  def tostring(self, result_tree):
+    """ tostring(self, result_tree)
+    
+            Save result doc to string based on stylesheet output method.
+    
+            :deprecated: use str(result_tree) instead.
+             """
+    pass
+
+class XSLTAccessControl(object):
+  """ XSLTAccessControl(self, read_file=True, write_file=True, create_dir=True, read_network=True, write_network=True)
+  
+      Access control for XSLT: reading/writing files, directories and
+      network I/O.  Access to a type of resource is granted or denied by
+      passing any of the following boolean keyword arguments.  All of
+      them default to True to allow access.
+  
+      - read_file
+      - write_file
+      - create_dir
+      - read_network
+      - write_network
+  
+      For convenience, there is also a class member `DENY_ALL` that
+      provides an XSLTAccessControl instance that is readily configured
+      to deny everything, and a `DENY_WRITE` member that denies all
+      write access but allows read access.
+  
+      See `XSLT`.
+       """
+
+  DENY_ALL = None
+  DENY_WRITE = None
+  options = property(None, None, None,
+                     """ The access control configuration as a map of options. """
+                     )
+
+
+class XSLTApplyError(XSLTError):
+  """ Error running an XSL transformation.
+       """
+
+  def __init__(self):
+    pass
+
+class XSLTError(LxmlError):
+  """ Base class of all XSLT errors.
+       """
+
+  def __init__(self):
+    pass
+
+class XSLTExtension(object):
+  """ Base class of an XSLT extension element.
+       """
+
+  def apply_templates(self, arg0):
+    """ apply_templates(self, context, node, output_parent=None)
+    
+            Call this method to retrieve the result of applying templates
+            to an element.
+    
+            The return value is a list of elements or text strings that
+            were generated by the XSLT processor.
+    
+            If you pass an Element as `output_parent` parameter, the result
+            will instead be appended to the element (including attributes
+            etc.) and the return value will be `None`.  This is a safe way
+            to generate content into the output document directly, without
+            having to take care of special values like text or attributes.
+             """
+    pass
+
+  def execute(self, context, self_node, input_node, output_parent):
+    """ execute(self, context, self_node, input_node, output_parent)
+            Execute this extension element.
+    
+            Subclasses must override this method.  They may append
+            elements to the `output_parent` element here, or set its text
+            content.  To this end, the `input_node` provides read-only
+            access to the current node in the input document, and the
+            `self_node` points to the extension element in the stylesheet.
+    
+            Note that the `output_parent` parameter may be `None` if there
+            is no parent element in the current context (e.g. no content
+            was added to the output tree yet).
+             """
+    pass
+
+  def process_children(self, arg0):
+    """ process_children(self, context, output_parent=None)
+    
+            Call this method to process the XSLT content of the extension
+            element itself.
+    
+            The return value is a list of elements or text strings that
+            were generated by the XSLT processor.
+    
+            If you pass an Element as `output_parent` parameter, the result
+            will instead be appended to the element (including attributes
+            etc.) and the return value will be `None`.  This is a safe way
+            to generate content into the output document directly, without
+            having to take care of special values like text or attributes.
+             """
+    pass
+
+class XSLTExtensionError(XSLTError):
+  """ Error registering an XSLT extension.
+       """
+
+  def __init__(self):
+    pass
+
+class XSLTParseError(XSLTError):
+  """ Error parsing a stylesheet document.
+       """
+
+  def __init__(self):
+    pass
+
+class XSLTSaveError(XSLTError):
+  """ Error serialising an XSLT result.
+       """
+
+  def __init__(self):
+    pass
+
+def cleanup_namespaces(tree_or_element):
+  """ cleanup_namespaces(tree_or_element)
+  
+      Remove all namespace declarations from a subtree that are not used
+      by any of the elements or attributes in that tree.
+       """
+  pass
+
+def clear_error_log():
+  """ clear_error_log()
+  
+      Clear the global error log.  Note that this log is already bound to a
+      fixed size.
+  
+      Note: since lxml 2.2, the global error log is local to a thread
+      and this function will only clear the global error log of the
+      current thread.
+       """
+  pass
+
+def dump():
+  """ dump(elem, pretty_print=True, with_tail=True)
+  
+      Writes an element tree or element structure to sys.stdout. This function
+      should be used for debugging only.
+       """
+  pass
+
+def fromstring(arg0):
+  """ fromstring(text, parser=None, base_url=None)
+  
+      Parses an XML document or fragment from a string.  Returns the
+      root node (or the result returned by a parser target).
+  
+      To override the default parser with a different parser you can pass it to
+      the ``parser`` keyword argument.
+  
+      The ``base_url`` keyword argument allows to set the original base URL of
+      the document to support relative Paths when looking up external entities
+      (DTD, XInclude, ...).
+       """
+  pass
+
+def fromstringlist(arg0):
+  """ fromstringlist(strings, parser=None)
+  
+      Parses an XML document from a sequence of strings.  Returns the
+      root node (or the result returned by a parser target).
+  
+      To override the default parser with a different parser you can pass it to
+      the ``parser`` keyword argument.
+       """
+  pass
+
+def get_default_parser():
+  """ get_default_parser() """
+  pass
+
+def iselement(element):
+  """ iselement(element)
+  
+      Checks if an object appears to be a valid element object.
+       """
+  pass
+
+class iterparse(_BaseParser):
+  """ iterparse(self, source, events=("end",), tag=None, attribute_defaults=False, dtd_validation=False, load_dtd=False, no_network=True, remove_blank_text=False, remove_comments=False, remove_pis=False, encoding=None, html=False, huge_tree=False, schema=None)
+  
+      Incremental parser.
+  
+      Parses XML into a tree and generates tuples (event, element) in a
+      SAX-like fashion. ``event`` is any of 'start', 'end', 'start-ns',
+      'end-ns'.
+  
+      For 'start' and 'end', ``element`` is the Element that the parser just
+      found opening or closing.  For 'start-ns', it is a tuple (prefix, URI) of
+      a new namespace declaration.  For 'end-ns', it is simply None.  Note that
+      all start and end events are guaranteed to be properly nested.
+  
+      The keyword argument ``events`` specifies a sequence of event type names
+      that should be generated.  By default, only 'end' events will be
+      generated.
+  
+      The additional ``tag`` argument restricts the 'start' and 'end' events to
+      those elements that match the given tag.  By default, events are generated
+      for all elements.  Note that the 'start-ns' and 'end-ns' events are not
+      impacted by this restriction.
+  
+      The other keyword arguments in the constructor are mainly based on the
+      libxml2 parser configuration.  A DTD will also be loaded if validation or
+      attribute default values are requested.
+  
+      Available boolean keyword arguments:
+       - attribute_defaults: read default attributes from DTD
+       - dtd_validation: validate (if DTD is available)
+       - load_dtd: use DTD for parsing
+       - no_network: prevent network access for related files
+       - remove_blank_text: discard blank text nodes
+       - remove_comments: discard comments
+       - remove_pis: discard processing instructions
+       - strip_cdata: replace CDATA sections by normal text content (default: True)
+       - compact: safe memory for short text content (default: True)
+       - resolve_entities: replace entities by their text value (default: True)
+       - huge_tree: disable security restrictions and support very deep trees
+                    and very long text content (only affects libxml2 2.7+)
+  
+      Other keyword arguments:
+       - encoding: override the document encoding
+       - schema: an XMLSchema to validate against
+       """
+
+  def __init__(self, event, element):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  def copy(self):
+    pass
+
+  error_log = property(None, None, None,
+                       """ The error log of the last (or current) parser run.
+                                """
+                       )
+
+
+  def next(self):
+    """ x.next() -> the next value, or raise StopIteration """
+    return None
+
+  root = property(None, None, None,
+                  )
+
+
+class iterwalk(object):
+  """ iterwalk(self, element_or_tree, events=("end",), tag=None)
+  
+      A tree walker that generates events from an existing tree as if it
+      was parsing XML data with ``iterparse()``.
+       """
+
+  def __init__(self):
+    """ x.__init__(...) initializes x; see help(type(x)) for signature """
+    pass
+
+  def next(self):
+    """ x.next() -> the next value, or raise StopIteration """
+    return None
+
+def parse():
+  """ parse(source, parser=None, base_url=None)
+  
+      Return an ElementTree object loaded with source elements.  If no parser
+      is provided as second argument, the default parser is used.
+  
+      The ``source`` can be any of the following:
+  
+      - a file name/path
+      - a file object
+      - a file-like object
+      - a URL using the HTTP or FTP protocol
+  
+      To parse from a string, use the ``fromstring()`` function instead.
+  
+      Note that it is generally faster to parse from a file path or URL
+      than from an open file object or file-like object.  Transparent
+      decompression from gzip compressed sources is supported (unless
+      explicitly disabled in libxml2).
+  
+      The ``base_url`` keyword allows setting a URL for the document
+      when parsing from a file-like object.  This is needed when looking
+      up external entities (DTD, XInclude, ...) with relative paths.
+       """
+  pass
+
+def parseid():
+  """ parseid(source, parser=None)
+  
+      Parses the source into a tuple containing an ElementTree object and an
+      ID dictionary.  If no parser is provided as second argument, the default
+      parser is used.
+  
+      Note that you must not modify the XML tree if you use the ID dictionary.
+      The results are undefined.
+       """
+  pass
+
+def register_namespace():
+  """ Registers a namespace prefix that newly created Elements in that
+      namespace will use.  The registry is global, and any existing
+      mapping for either the given prefix or the namespace URI will be
+      removed.
+       """
+  pass
+
+def set_default_parser(arg0):
+  """ set_default_parser(parser=None)
+  
+      Set a default parser for the current thread.  This parser is used
+      globally whenever no parser is supplied to the various parse functions of
+      the lxml API.  If this function is called without a parser (or if it is
+      None), the default parser is reset to the original configuration.
+  
+      Note that the pre-installed default parser is not thread-safe.  Avoid the
+      default parser in multi-threaded environments.  You can create a separate
+      parser for each thread explicitly or use a parser pool.
+       """
+  return None
+
+def set_element_class_lookup(arg0):
+  """ set_element_class_lookup(lookup = None)
+  
+      Set the global default element class lookup method.
+       """
+  return None
+
+def strip_attributes(tree_or_element, arg0):
+  """ strip_attributes(tree_or_element, *attribute_names)
+  
+      Delete all attributes with the provided attribute names from an
+      Element (or ElementTree) and its descendants.
+  
+      Example usage::
+  
+          strip_attributes(root_element,
+                           'simpleattr',
+                           '{http://some/ns}attrname')
+       """
+  pass
+
+def strip_elements(arg0):
+  """ strip_elements(tree_or_element, *tag_names, with_tail=True)
+  
+      Delete all elements with the provided tag names from a tree or
+      subtree.  This will remove the elements and their entire subtree,
+      including all their attributes, text content and descendants.  It
+      will also remove the tail text of the element unless you
+      explicitly set the ``with_tail`` option to False.
+  
+      Note that this will not delete the element (or ElementTree root
+      element) that you passed even if it matches.  It will only treat
+      its descendants.  If you want to include the root element, check
+      its tag name directly before even calling this function.
+  
+      Example usage::
+  
+          strip_elements(some_element,
+              'simpletagname',             # non-namespaced tag
+              '{http://some/ns}tagname',   # namespaced tag
+              '{http://some/other/ns}*'    # any tag from a namespace
+              Comment                      # comments
+              )
+       """
+  pass
+
+def strip_tags(tree_or_element, arg0):
+  """ strip_tags(tree_or_element, *tag_names)
+  
+      Delete all elements with the provided tag names from a tree or
+      subtree.  This will remove the elements and their attributes, but
+      *not* their text/tail content or descendants.  Instead, it will
+      merge the text content and children of the element into its
+      parent.
+  
+      Note that this will not delete the element (or ElementTree root
+      element) that you passed even if it matches.  It will only treat
+      its descendants.
+  
+      Example usage::
+  
+          strip_tags(some_element,
+              'simpletagname',             # non-namespaced tag
+              '{http://some/ns}tagname',   # namespaced tag
+              '{http://some/other/ns}*'    # any tag from a namespace
+              Comment                      # comments (including their text!)
+              )
+       """
+  pass
+
+def tostring(None, pretty_print=False, with_tail=True, arg=None):
+  """ tostring(element_or_tree, encoding=None, method="xml",
+                   xml_declaration=None, pretty_print=False, with_tail=True,
+                   standalone=None, doctype=None,
+                   exclusive=False, with_comments=True)
+  
+      Serialize an element to an encoded string representation of its XML
+      tree.
+  
+      Defaults to ASCII encoding without XML declaration.  This
+      behaviour can be configured with the keyword arguments 'encoding'
+      (string) and 'xml_declaration' (bool).  Note that changing the
+      encoding to a non UTF-8 compatible encoding will enable a
+      declaration by default.
+  
+      You can also serialise to a Unicode string without declaration by
+      passing the ``unicode`` function as encoding (or ``str`` in Py3),
+      or the name 'unicode'.  This changes the return value from a byte
+      string to an unencoded unicode string.
+  
+      The keyword argument 'pretty_print' (bool) enables formatted XML.
+  
+      The keyword argument 'method' selects the output method: 'xml',
+      'html', plain 'text' (text content without tags) or 'c14n'.
+      Default is 'xml'.
+  
+      The ``exclusive`` and ``with_comments`` arguments are only used
+      with C14N output, where they request exclusive and uncommented
+      C14N serialisation respectively.
+  
+      Passing a boolean value to the ``standalone`` option will output
+      an XML declaration with the corresponding ``standalone`` flag.
+  
+      The ``doctype`` option allows passing in a plain string that will
+      be serialised before the XML tree.  Note that passing in non
+      well-formed content here will make the XML output non well-formed.
+  
+      You can prevent the tail text of the element from being serialised
+      by passing the boolean ``with_tail`` option.  This has no impact
+      on the tail text of children, which will always be serialised.
+       """
+  return None
+
+def tostringlist(element_or_tree, arg0, arg1):
+  """ tostringlist(element_or_tree, *args, **kwargs)
+  
+      Serialize an element to an encoded string representation of its XML
+      tree, stored in a list of partial strings.
+  
+      This is purely for ElementTree 1.3 compatibility.  The result is a
+      single string wrapped in a list.
+       """
+  pass
+
+def tounicode(el, encoding=unicode):
+  """ tounicode(element_or_tree, method="xml", pretty_print=False,
+                    with_tail=True, doctype=None)
+  
+      Serialize an element to the Python unicode representation of its XML
+      tree.
+  
+      :deprecated: use ``tostring(el, encoding=unicode)`` instead.
+  
+      Note that the result does not carry an XML encoding declaration and is
+      therefore not necessarily suited for serialization to byte streams without
+      further treatment.
+  
+      The boolean keyword argument 'pretty_print' enables formatted XML.
+  
+      The keyword argument 'method' selects the output method: 'xml',
+      'html' or plain 'text'.
+  
+      You can prevent the tail text of the element from being serialised
+      by passing the boolean ``with_tail`` option.  This has no impact
+      on the tail text of children, which will always be serialised.
+       """
+  return None
+
+def use_global_python_log(log):
+  """ use_global_python_log(log)
+  
+      Replace the global error log by an etree.PyErrorLog that uses the
+      standard Python logging package.
+  
+      Note that this disables access to the global error log from exceptions.
+      Parsers, XSLT etc. will continue to provide their normal local error log.
+  
+      Note: prior to lxml 2.2, this changed the error log globally.
+      Since lxml 2.2, the global error log is local to a thread and this
+      function will only set the global error log of the current thread.
+       """
+  pass
+
