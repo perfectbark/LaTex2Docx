@@ -81,6 +81,14 @@ _tum = {
         ';'         : u'\u2004',
         'cdot'      : u'\u2219',
         'leq'       : u'\u2264',
+        'prime'     : u'\u2032',
+        'approx'    : u'\u2248',
+        '&'         : '&',
+        'quad'      : u'\u2003',
+        ','         : u'\u2006',
+        'forall'    : u'\u2200',
+        'exists'    : u'\u2203',
+        'leftrightarrow' : u'\u2194',
 }
 
 def xstxt(nd):
@@ -93,7 +101,12 @@ def updatect(ct):
     ctc = dict([(x, xstxt) for x in _tum.keys()])
     ct.update(ctc)
     
-
+def xacchar(nd):
+    getap(nd).append(txt.tr(nd.chars[nd.textContent]))
+    
+    
+    
+    
 if __name__ == "__main__":
     k = _tum.keys()
     ctc = dict([(x, xtchar) for x in _tum.keys()])

@@ -41,4 +41,13 @@
       <w:vertAlign w:val="superscript" />
     </w:rPr>
   </w:style>
+  <w:style w:type="table" w:styleId="tbl">
+    <w:name w:val="Table Grid" />
+    <w:tblPr>
+      <w:tblCellMar>
+        <w:left w:w="108" w:type="dxa" />
+        <w:right w:w="108" w:type="dxa" />
+      </w:tblCellMar>
+    </w:tblPr>
+  </w:style>
 </w:styles>

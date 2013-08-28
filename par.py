@@ -1,12 +1,13 @@
-from common import NSW, NSM, npf, getap, setx, Body, mmf, setap, rbf, rif, Style
+from common import NSW, NSM, npf, getap, setx, Body, mmf, setap, rbf, rif, Style, dc
 from lxml import etree
 import ct, txt, enum, docx, datetime
 
 _mt = dict()
 
 def xpar(nd):
-    if nd.firstChild != None:
-        if nd.firstChild.nodeName in {'enumerate', 'itemize', 'equation', 'abstract', 'thebibliography'}:
+    if nd.childNodes:
+        if nd.firstChild.nodeName in {'enumerate', 'itemize', 'equation', 'abstract', 'thebibliography', 
+                                      'table', 'centering', 'tabular'}:
             setap(nd, getap(nd))
             ct.cnl(nd)
             return
@@ -24,6 +25,7 @@ def xpar(nd):
         return
         
     p = etree.Element(NSW+'p')
+    setAlign(p)
     setx(nd, p, p)
     npf.clear()
     ct.cnl(nd)
@@ -66,12 +68,15 @@ def xdate(nd):
     npf.pop()
 
 def xmaketitle(nd):
+    i = 0
     if 'title' in _mt.keys():
-        Body.insert(0,_mt['title'])
+        Body.insert(i,_mt['title'])
+        i = i+1
     if 'author' in _mt.keys():
-        Body.insert(1,_mt['author'])
+        Body.insert(i,_mt['author'])
+        i = i+1
     if 'date' in _mt.keys():
-        Body.insert(2,_mt['date'])
+        Body.insert(i,_mt['date'])
     else:
         npf.push()
         p = spar('author')
@@ -86,8 +91,8 @@ def xsection(nd):
     r = txt.tr(s)
     p = spar('section')
     p.append(r)
-    getap(nd).append(p)
-    setx(nd, p, getap(nd))
+    Body.append(p)
+    setx(nd, p, Body)
     ct.cnl(nd)
 
 def xabstract(nd):
@@ -215,3 +220,29 @@ def setfnf(p, s):
     if fnf == None:
         fnf = etree.SubElement(fp, NSW+'numFmt')
     fnf.set(NSW+'val', s)
+
+def xcite(nd):
+    f = nd.citation()
+    setap(f, getap(nd))
+    ct.cnl(f)
+    
+def xcentering(nd):
+    ct.pn(nd)
+    
+def setAlign(par):
+    if dc.ac == 'b':
+        return
+    pr = par.find(NSW+'pPr')
+    if pr == None:
+        pr = etree.SubElement(par, NSW+'pPr')
+    jc = pr.find(NSW+'jc')
+    if jc == None:
+        jc = etree.SubElement(pr, NSW+'jc')
+        
+    if dc.ac == 'c':
+        jc.set(NSW+'val', 'center')
+    elif dc.ac == 'l':
+        jc.set(NSW+'val', 'start')
+    elif dc.ac == 'r':
+        jc.set(NSW+'val', 'end')
+        

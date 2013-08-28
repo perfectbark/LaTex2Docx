@@ -264,18 +264,22 @@ def accent(nd, char):
     
 def xhat(nd):
     accent(nd, u"\u0302")
+
+def xtilde(nd):
+    accent(nd, u'\u0303')
     
 def xref(nd):
     getap(nd).append(txt.tr(nd.idref['label'].ref.textContent))
     
 def xlim(nd):
-    ll = etree.Element(NSM+'limLow')
-    e = etree.SubElement(ll, NSM+'e')
-    e.append(txt.pmtr('lim'))
-    l = etree.SubElement(ll, NSM+'lim')
-    setx(nd, ll, l)
-    getap(nd).append(ll)
-    ct.cnl(nd)
+    limlow(nd, 'lim')
+    #ll = etree.Element(NSM+'limLow')
+    #e = etree.SubElement(ll, NSM+'e')
+    #e.append(txt.pmtr('lim'))
+    #l = etree.SubElement(ll, NSM+'lim')
+    #setx(nd, ll, l)
+    #getap(nd).append(ll)
+    #ct.cnl(nd)
     
 def xmin(nd):
     ll = etree.Element(NSM+'limLow')
@@ -365,6 +369,9 @@ def xsum(nd):
 
 def xint(nd):
     narg(nd, u'\u222B')
+    
+def xprod(nd):
+    narg(nd, u'\u220F')
 
 def narg(nd, char):
     n = etree.Element(NSM+'nary')

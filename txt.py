@@ -11,8 +11,8 @@ def xtext(nd):
         p = getap(nd)
         if len(p) == 0:
             s = s.lstrip()
-        else:
-            x = p[-1]
+        elif p[-1].tag == NSW+'pPr':
+            s = s.lstrip()
     
     #if nd.previousSibling == None:
         #s = s.lstrip()
@@ -32,6 +32,8 @@ def xtext(nd):
 def tr(s):
     if mmf.isset():
         r  = etree.Element(NSM+'r')
+        if rpr()!=None:
+            r.append(rpr())
         if ntf.isset():
             pr = etree.SubElement(r, NSM+'rPr')
             etree.SubElement(pr, NSM+'nor')
@@ -59,11 +61,18 @@ def rpr():
             r = etree.Element(NSW+'rPr')
         etree.SubElement(r,NSW+'i')
     if ttf.isset():
-        if r==None:
-            r = etree.Element(NSW+'rPr')
-        etree.SubElement(r,NSW+'i')
-        f = etree.SubElement(r, NSW+'rFonts')
-        f.set(NSW+'ascii', 'Courier New')
+        if mmf.isset():
+            if r==None:
+                r = etree.Element(NSM+'rPr')
+            scr = etree.SubElement(r, NSM+'scr')
+            scr.set(NSM+'val', 'monospace')
+            sty = etree.SubElement(r, NSM+'sty')
+            sty.set(NSM+'val', 'p')
+        else:
+            if r==None:
+                r = etree.Element(NSW+'rPr')
+            f = etree.SubElement(r, NSW+'rFonts')
+            f.set(NSW+'ascii', 'Courier New')
     if rbf.isset():
         if r==None:
             r = etree.Element(NSW+'rPr')

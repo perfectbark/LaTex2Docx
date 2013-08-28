@@ -73,3 +73,25 @@ rif = Flag()
 ttf = Flag()
 
 rbf = Flag()
+
+           
+class DocumentContext(object):
+    def __init__(self):
+        self.al = ['b']
+        
+    @property
+    def ac(self):
+        return self.al[-1]
+    
+    @ac.setter
+    def ac(self, value):
+        if value in {'b', 'c', 'l', 'r'}:
+            self.al.append(value)
+        else:
+            raise ValueError('Wrong value.')
+        
+    def acPop(self):
+        self.al.pop()
+
+    
+dc = DocumentContext()

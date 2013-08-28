@@ -9,6 +9,7 @@ from plasTeX import Command, Environment
 
 class center(Environment): 
     blockType = True
+    forcePars = True
 
 class centering(center):
     blockType = True

@@ -4,7 +4,7 @@ from plasTeX.TeX import TeX
 #from T2U import t2uct, xtchar, t2uctw
 #from Numbering import xenumerate
 #import Equation
-import docx, txt, par, stxt, mm, ss, space, enum, dfn
+import docx, txt, par, stxt, mm, ss, space, enum, dfn, table
 
 
 ct =  {
@@ -30,8 +30,8 @@ ct =  {
       'texttt': txt.xtexttt,
       'delim' : mm.xdelim,
       'array' : mm.xarray,
-      'ArrayRow' : mm.xArrayRow,
-      'ArrayCell' : mm.xArrayCell,
+      'ArrayRow' : table.xArrayRow,
+      'ArrayCell' : table.xArrayCell,
       'mbox' : mm.xtext,
       'eqnarray' : mm.xeqnarray,
       'hspace' : space.xhspace,
@@ -59,6 +59,16 @@ ct =  {
       'thanks'     : par.xthanks,
       'footnote'   : par.xthanks,
       'max'        : mm.xmax,
+      '"'          : stxt.xacchar,
+      'tt'         : txt.xtexttt,
+      'cite'       : par.xcite,
+      'c'          : stxt.xacchar,
+      'subsection' : par.xsection,
+      'tilde'      : mm.xtilde,
+      'prod'       : mm.xprod,
+      'table'      : table.xtable,
+      'centering'  : par.xcentering,
+      'tabular'    : table.xtabular,
       }
 
 stxt.updatect(ct)
@@ -84,3 +94,7 @@ def cnl(nd):
         ne.parentNode = nd
     for ne in nd.childNodes:
         cnd(ne)
+        
+def pn(nd):
+    nd.setUserData('ap', nd.parentNode.getUserData('ap'))
+    cnl(nd)

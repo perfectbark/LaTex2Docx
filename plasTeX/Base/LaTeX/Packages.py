@@ -181,6 +181,7 @@ class thanks(Command):
 
 class abstract(Environment):
     blockType = True
+    forcePars = True
 
 class titlepage(Environment):
     blockType = True
