@@ -6,6 +6,10 @@ from plasTeX.TeX import TeX
 #import Equation
 import docx, txt, par, stxt, mm, ss, space, enum, dfn, table
 
+def pn(nd):
+    nd.setUserData('ap', nd.parentNode.getUserData('ap'))
+    cnl(nd)
+    
 
 ct =  {
       '#document' : docx.xdoc,
@@ -69,6 +73,14 @@ ct =  {
       'table'      : table.xtable,
       'centering'  : par.xcentering,
       'tabular'    : table.xtabular,
+      'multicolumn': pn,
+      'caption'    : par.xcaption,
+      'center'     : pn,
+      'verbatim'   : txt.xverbatim,
+      'verb'       : txt.xtexttt,
+      'newline'    : par.xbr,
+      'ln'         : mm.xfunc,
+      'exp'        : mm.xfunc,
       }
 
 stxt.updatect(ct)
@@ -76,7 +88,7 @@ stxt.updatect(ct)
 
 def unknowntag(nd):
     if nd.nodeType == 1:
-        if nd.nodeName in {'def', 'label', 'usepackage', 'documentclass'}:
+        if nd.nodeName in {'def', 'label', 'usepackage', 'documentclass', 'hline', 'cline', '!'}:
             return
         else:
             print ' id:', nd.id, 'Name:', nd.nodeName
@@ -95,6 +107,3 @@ def cnl(nd):
     for ne in nd.childNodes:
         cnd(ne)
         
-def pn(nd):
-    nd.setUserData('ap', nd.parentNode.getUserData('ap'))
-    cnl(nd)

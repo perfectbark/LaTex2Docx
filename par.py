@@ -7,7 +7,7 @@ _mt = dict()
 def xpar(nd):
     if nd.childNodes:
         if nd.firstChild.nodeName in {'enumerate', 'itemize', 'equation', 'abstract', 'thebibliography', 
-                                      'table', 'centering', 'tabular'}:
+                                      'table', 'centering', 'tabular', 'center'}:
             setap(nd, getap(nd))
             ct.cnl(nd)
             return
@@ -246,3 +246,10 @@ def setAlign(par):
     elif dc.ac == 'r':
         jc.set(NSW+'val', 'end')
         
+def xcaption(nd):
+    p =  getap(nd)
+    s = nd.captionName.textContent + ' ' + nd.ref.textContent + ': ' 
+    r = txt.tr(s)
+    p.append(r)
+    setap(nd, p)
+    ct.cnl(nd)

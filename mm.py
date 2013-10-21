@@ -308,14 +308,6 @@ def limlow(nd, s):
 def xmax(nd):
     limlow(nd, 'max')
 
-def func(s):
-    f = etree.Element(NSM+'func')
-    n = etree.SubElement(f, NSM+'fName')
-    n.append(txt.pmtr(s))
-    e = etree.SubElement(f, NSM+'e')
-    e.append(txt.tr(u'\u200B'))
-    return f
-
 def xsum(nd):
     n = etree.Element(NSM+'nary')
     getap(nd).append(n)
@@ -424,3 +416,14 @@ def narg(nd, char):
     except AttributeError:
         return
     
+def xfunc(nd):
+    s = nd.nextSibling.textContent
+    n = nd.tagName
+    if s:
+        if s[0] not in {'(', '[', '{'}:
+            getap(nd).append(txt.pmtr(n+u'\u2006'));
+        else:
+            getap(nd).append(txt.pmtr(n))
+    else:
+        getap(nd).append(txt.pmtr(n))
+

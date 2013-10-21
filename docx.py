@@ -45,7 +45,6 @@ Numbering = _pd['numbering'].getroot()
 Footnotes = _pd['footnotes'].getroot()
 
 if __name__ == "__main__":
-    ps = etree.XMLParser(remove_blank_text=True)
-    Document = etree.parse('doc.xml',ps)
-    Save('sd')
-      
+    p = etree.SubElement(Body, NSW+'p')
+    r = etree.SubElement(p, NSW+'r')
+    save('sd')

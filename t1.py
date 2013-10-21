@@ -3,7 +3,7 @@ from lxml import etree
 import ct, docx
 from common import Document
 
-td = TeX(file='et1.tex')
+td = TeX(file='nt.tex')
 td = td.parse()
 
 print

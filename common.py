@@ -95,3 +95,14 @@ class DocumentContext(object):
 
     
 dc = DocumentContext()
+
+def branch(*tags):
+    n = NSW
+    e = [etree.Element(n+t) for t in tags]
+    for i in range(len(e) - 1):
+        e[i].append(e[i+1])
+    return e
+
+if __name__ == "__main__":
+    e = branch('p', 'r', 't')
+    print e[2].getchildren()

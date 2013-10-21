@@ -1,7 +1,7 @@
 from lxml import etree
 from common import NSM, setx, mmf, NSW, getap, ntf, setap, Body, dc
 from copy import deepcopy
-import ct, txt, par
+import ct, txt, par, mm
 
 def xtabular(nd):
     t = etree.Element(NSW+'tbl')
@@ -15,9 +15,15 @@ def xtabular(nd):
     ct.cnl(nd)
     
 def xArrayRow(nd):
+    if mmf.isset():
+        mm.xArrayRow(nd)
+        return
     tr(nd)
     
 def xArrayCell(nd):
+    if mmf.isset():
+        mm.xArrayCell(nd)
+        return
     tc(nd)
     
 def tr(nd):
@@ -29,6 +35,11 @@ def tr(nd):
 def tc(nd):
     c = etree.Element(NSW+'tc')
     cp = etree.SubElement(c, NSW+'tcPr')
+    
+    if 'colspan' in nd.attributes:
+        gs = etree.SubElement(cp, NSW+'gridSpan')
+        gs.set(NSW+'val', str(nd.attributes['colspan']))
+        
     bd = etree.SubElement(cp, NSW+'tcBorders')
     
     if 'border-top-style' in nd.style:
@@ -65,7 +76,9 @@ def tc(nd):
     if nd.childNodes:    
         setx(nd,c,c)
         ct.cnl(nd)
-    else:
+    
+    p = c.find(NSW+'p')
+    if p == None:
         p = etree.SubElement(c, NSW+'p')
         par.setAlign(p)
         
@@ -74,3 +87,4 @@ def tc(nd):
     
 def xtable(nd):
     ct.pn(nd)
+

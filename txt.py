@@ -123,3 +123,16 @@ def pmtr(s):
     t = etree.SubElement(r, NSM+'t')
     t.text = s
     return r
+
+def xverbatim(nd):
+    ls = nd.textContent.splitlines()
+    if ls[0] == '':
+        ls = ls[1:]
+    p = getap(nd)
+    ttf.push()
+    ttf.set()
+    for l in ls:
+        p.append(tr(l))
+        p.append(etree.Element(NSW+'br'))
+    p.remove(p[-1])
+    ttf.pop()

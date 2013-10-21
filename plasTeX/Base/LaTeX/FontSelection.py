@@ -48,7 +48,7 @@ class textnormal(TextCommand): pass
 # C.15.2 Changing the Type Size
 #
 
-class TextSizeDeclaration(Environment):
+class TextSizeDeclaration(Command):
     pass
 
 class tiny(TextSizeDeclaration): pass

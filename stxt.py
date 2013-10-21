@@ -89,6 +89,7 @@ _tum = {
         'forall'    : u'\u2200',
         'exists'    : u'\u2203',
         'leftrightarrow' : u'\u2194',
+        'pm'        : u'\u00B1',
 }
 
 def xstxt(nd):
